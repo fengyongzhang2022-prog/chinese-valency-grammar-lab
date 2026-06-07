@@ -6,22 +6,26 @@
   <title>汉语多维语法分析导览</title>
   <style>
     :root {
-      --ink: #17212d;
-      --ink-soft: #344154;
-      --muted: #687383;
+      --ink: #18202c;
+      --ink-2: #344155;
+      --muted: #6d7887;
       --paper: #fffdf8;
-      --wash: #f5f8f5;
-      --line: #dfe8e3;
-      --jade: #0b6f68;
-      --jade-soft: #e8f5f1;
-      --red: #b84c3d;
-      --red-soft: #fff0ec;
-      --gold: #b1842f;
-      --gold-soft: #fff7e4;
-      --blue: #496f94;
-      --blue-soft: #edf5fb;
-      --shadow: 0 18px 42px rgba(23, 33, 45, .08);
-      --radius: 18px;
+      --paper-2: #f8f5ee;
+      --wash: #eef5f1;
+      --line: #dfded6;
+      --line-2: #cbded8;
+      --jade: #0a746d;
+      --jade-dark: #075651;
+      --jade-soft: #e6f4ef;
+      --cinnabar: #b84a38;
+      --cinnabar-soft: #fff0eb;
+      --gold: #b1812a;
+      --gold-soft: #fff7df;
+      --blue: #486e91;
+      --blue-soft: #eef5fb;
+      --shadow: 0 22px 60px rgba(24, 32, 44, .1);
+      --soft-shadow: 0 14px 34px rgba(24, 32, 44, .07);
+      --radius: 14px;
     }
 
     * { box-sizing: border-box; }
@@ -31,9 +35,19 @@
       color: var(--ink);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
       background:
-        radial-gradient(circle at 8% 5%, rgba(11, 111, 104, .07), transparent 26%),
-        radial-gradient(circle at 94% 2%, rgba(184, 76, 61, .06), transparent 22%),
-        linear-gradient(180deg, #fff 0 170px, #f7faf7 170px 100%);
+        linear-gradient(180deg, rgba(255,255,255,.97) 0 100px, rgba(245,249,246,.96) 100%),
+        var(--paper);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 8% 18%, rgba(10, 116, 109, .11), transparent 25%),
+        radial-gradient(circle at 92% 6%, rgba(184, 74, 56, .1), transparent 24%),
+        radial-gradient(circle at 72% 86%, rgba(177, 129, 42, .08), transparent 24%);
     }
 
     button, textarea { font: inherit; }
@@ -44,476 +58,676 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, .94);
-      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(203, 222, 216, .9);
+      background: rgba(255, 253, 248, .92);
+      backdrop-filter: blur(16px);
     }
 
     .topbar-inner {
-      max-width: 1500px;
+      max-width: 1480px;
       margin: 0 auto;
-      padding: 18px 42px;
+      padding: 16px 34px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 26px;
+      gap: 24px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       min-width: 360px;
     }
 
     .seal {
-      width: 56px;
-      height: 56px;
-      border: 1px solid rgba(184, 76, 61, .34);
+      width: 54px;
+      height: 54px;
+      flex: 0 0 auto;
+      border: 1px solid rgba(184, 74, 56, .34);
       border-radius: 999px;
       display: grid;
       place-items: center;
-      color: var(--red);
-      background: #fff;
-      font-weight: 900;
-      font-size: 20px;
-      font-family: "KaiTi", "STKaiti", serif;
+      color: var(--cinnabar);
+      background: rgba(255, 255, 255, .72);
+      font: 900 20px/1 "KaiTi", "STKaiti", serif;
+      box-shadow: inset 0 0 0 8px rgba(184, 74, 56, .035);
     }
 
     h1 {
       font-family: "Songti SC", "SimSun", "Microsoft YaHei", serif;
-      font-size: clamp(28px, 2.7vw, 42px);
-      line-height: 1.08;
-      letter-spacing: .02em;
+      font-size: clamp(27px, 2.65vw, 42px);
+      line-height: 1.06;
+      letter-spacing: 0;
+      font-weight: 800;
     }
 
     .subtitle {
       margin-top: 7px;
       color: var(--muted);
       font-size: 15px;
-      letter-spacing: .03em;
+      letter-spacing: .02em;
     }
 
     .nav {
       display: flex;
       align-items: center;
-      gap: 30px;
+      gap: 8px;
       white-space: nowrap;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .nav button {
+      border: 1px solid transparent;
+      background: transparent;
+      color: #344155;
+      border-radius: 999px;
+      padding: 9px 14px;
       font-family: "Songti SC", "SimSun", serif;
-      font-size: 16px;
+      font-size: 15px;
+      transition: .18s ease;
     }
 
-    .nav a {
-      color: #313b4a;
-      text-decoration: none;
-      padding: 10px 0 9px;
-      border-bottom: 3px solid transparent;
-    }
-
-    .nav a:hover,
-    .nav a:first-child {
+    .nav button:hover {
       color: var(--jade);
-      border-bottom-color: var(--jade);
+      background: rgba(10, 116, 109, .06);
     }
 
-    .wrap {
-      max-width: 1500px;
+    .nav button.active {
+      color: var(--jade-dark);
+      border-color: rgba(10, 116, 109, .18);
+      background: var(--jade-soft);
+      box-shadow: inset 0 -2px 0 rgba(10, 116, 109, .2);
+    }
+
+    .page {
+      max-width: 1480px;
       margin: 0 auto;
-      padding: 0 42px 56px;
+      padding: 28px 34px 58px;
     }
 
     .hero {
-      margin-left: -42px;
-      margin-right: -42px;
-      min-height: 330px;
-      border-bottom: 1px solid var(--line);
-      background:
-        linear-gradient(90deg, rgba(245, 250, 247, .92) 0%, rgba(255,255,255,.96) 38%, rgba(255,255,255,.98) 100%),
-        url("assets/plum-ink-bg.png") left center / 430px auto no-repeat;
       display: grid;
-      grid-template-columns: 330px minmax(0, 1fr);
-      gap: 34px;
-      padding: 44px 42px;
-      align-items: center;
+      grid-template-columns: minmax(330px, 420px) minmax(0, 1fr);
+      min-height: 430px;
+      overflow: hidden;
+      border: 1px solid rgba(203, 222, 216, .9);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, .78);
+      box-shadow: var(--shadow);
     }
 
-    .hero-copy {
-      padding-left: 80px;
+    .plum-stage {
       position: relative;
+      min-height: 430px;
+      padding: 44px 38px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background:
+        linear-gradient(180deg, rgba(255,253,248,.1), rgba(255,253,248,.72)),
+        url("assets/plum-ink-bg.png") center bottom / cover no-repeat;
+      border-right: 1px solid rgba(203, 222, 216, .86);
     }
 
-    .hero-copy::after {
-      content: "⌁";
+    .plum-stage::after {
+      content: "";
       position: absolute;
-      right: 12px;
-      top: 28px;
-      color: rgba(177, 132, 47, .35);
-      font-size: 42px;
-      font-family: serif;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,253,248,.76), rgba(255,253,248,.22) 52%, rgba(255,253,248,.58)),
+        radial-gradient(circle at 18% 14%, rgba(184,74,56,.08), transparent 26%);
+      pointer-events: none;
     }
 
-    .hero-kicker {
-      color: var(--red);
-      font-family: "KaiTi", "STKaiti", serif;
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: .18em;
+    .plum-stage > * {
+      position: relative;
+      z-index: 1;
     }
 
-    .hero-copy p {
-      margin-top: 22px;
-      max-width: 230px;
-      color: #3f4a57;
-      line-height: 2;
+    .kicker {
+      color: var(--cinnabar);
+      font: 900 18px/1.2 "KaiTi", "STKaiti", serif;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+    }
+
+    .plum-stage h2 {
+      margin-top: 16px;
+      max-width: 270px;
+      color: var(--ink);
+      font: 800 clamp(32px, 3vw, 48px)/1.08 "Songti SC", "SimSun", serif;
+    }
+
+    .plum-stage p {
+      margin-top: 20px;
+      max-width: 300px;
+      color: #3f4b5c;
+      line-height: 1.95;
       font-size: 16px;
     }
 
+    .chapter-mark {
+      width: fit-content;
+      padding: 8px 12px;
+      border: 1px solid rgba(184, 74, 56, .22);
+      border-radius: 999px;
+      color: var(--cinnabar);
+      background: rgba(255, 253, 248, .72);
+      font-size: 13px;
+      font-weight: 780;
+    }
+
     .workbench {
-      align-self: center;
-      padding-right: 24px;
+      padding: 46px;
+      display: grid;
+      align-content: center;
+      gap: 24px;
+      background:
+        linear-gradient(135deg, rgba(255,253,248,.92), rgba(255,255,255,.97)),
+        radial-gradient(circle at 94% 10%, rgba(10,116,109,.08), transparent 32%);
     }
 
     .input-row {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 138px 124px;
+      grid-template-columns: minmax(0, 1fr) 136px 124px;
       gap: 14px;
       align-items: stretch;
     }
 
     textarea {
       width: 100%;
-      min-height: 76px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: rgba(255,255,255,.94);
+      min-height: 92px;
+      border: 1px solid var(--line-2);
+      border-radius: 10px;
+      background: rgba(255,255,255,.92);
       outline: 0;
-      resize: none;
-      padding: 22px 24px;
+      resize: vertical;
+      padding: 24px 26px;
       color: var(--ink);
-      font-size: 18px;
-      line-height: 1.45;
+      font-size: 20px;
+      line-height: 1.5;
       box-shadow: inset 0 1px 0 rgba(0,0,0,.02);
     }
 
+    textarea:focus {
+      border-color: rgba(10,116,109,.55);
+      box-shadow: 0 0 0 4px rgba(10,116,109,.08);
+    }
+
     .btn {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: #fff;
-      color: #253242;
-      padding: 12px 16px;
-      font-weight: 760;
+      border: 1px solid var(--line-2);
+      border-radius: 10px;
+      background: rgba(255,255,255,.9);
+      color: #263343;
+      padding: 13px 16px;
+      font-weight: 780;
       transition: .18s ease;
     }
 
-    .btn:hover { transform: translateY(-1px); border-color: #aacfc7; }
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(10,116,109,.36);
+      box-shadow: var(--soft-shadow);
+    }
 
     .btn.primary {
       border-color: transparent;
       background: var(--jade);
       color: #fff;
-      box-shadow: 0 14px 30px rgba(11, 111, 104, .24);
+      box-shadow: 0 16px 34px rgba(10, 116, 109, .24);
     }
 
     .btn.secondary {
-      color: var(--jade);
-      background: #fff;
+      color: var(--jade-dark);
+      background: rgba(255,255,255,.72);
     }
 
     .examples {
-      margin-top: 18px;
       display: flex;
+      align-items: center;
       flex-wrap: wrap;
       gap: 10px;
-      align-items: center;
     }
 
     .examples-label {
-      font-weight: 780;
       color: var(--ink);
+      font-weight: 800;
     }
 
     .example {
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: #fff;
-      padding: 9px 14px;
-      color: #3d4856;
+      background: rgba(255,255,255,.8);
+      color: #485466;
+      padding: 8px 14px;
       font-size: 14px;
     }
 
     .example:hover {
+      color: var(--jade-dark);
+      border-color: rgba(10,116,109,.34);
       background: var(--jade-soft);
-      border-color: #a9d4ca;
-      color: var(--jade);
     }
 
     .status {
-      margin-top: 18px;
       color: var(--muted);
       line-height: 1.7;
       font-size: 15px;
     }
 
-    .overview {
-      margin-top: 30px;
+    .current-strip {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.14fr);
+      grid-template-columns: 1fr auto;
       gap: 18px;
-      align-items: start;
+      align-items: center;
+      border: 1px solid rgba(203, 222, 216, .9);
+      border-radius: 8px;
+      background: rgba(255,255,255,.72);
+      padding: 18px 22px;
+      box-shadow: var(--soft-shadow);
     }
 
-    .card,
-    .section {
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.96);
-      box-shadow: var(--shadow);
+    .current-strip strong {
+      display: block;
+      font-family: "Songti SC", "SimSun", serif;
+      font-size: 24px;
+      line-height: 1.35;
     }
+
+    .current-strip span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .confidence {
+      min-width: 88px;
+      text-align: center;
+      border-left: 1px solid var(--line);
+      padding-left: 18px;
+      color: var(--jade-dark);
+      font-weight: 860;
+    }
+
+    .confidence small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .view {
+      display: none;
+      margin-top: 28px;
+      animation: fadeIn .24s ease both;
+    }
+
+    .view.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 22px;
+      align-items: end;
+      margin: 0 0 20px;
+      padding: 0 4px;
+    }
+
+    .section-head h2 {
+      font: 800 clamp(26px, 2.2vw, 36px)/1.12 "Songti SC", "SimSun", serif;
+      color: var(--ink);
+    }
+
+    .section-head p {
+      margin-top: 10px;
+      max-width: 760px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 16px;
+    }
+
+    .section-tag {
+      align-self: start;
+      border: 1px solid rgba(184, 74, 56, .24);
+      border-radius: 999px;
+      color: var(--cinnabar);
+      background: rgba(255, 240, 235, .64);
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 820;
+    }
+
+    .home-grid,
+    .two-grid,
+    .three-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .home-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .two-grid { grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr); }
+    .three-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
     .card {
-      padding: 26px 28px;
-      min-height: 100%;
+      border: 1px solid rgba(203, 222, 216, .9);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,253,248,.86));
+      box-shadow: var(--soft-shadow);
+      padding: 24px;
+      overflow: hidden;
     }
 
-    .card h3,
-    .section h2 {
+    .card.feature {
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card h3 {
       display: flex;
       align-items: center;
-      gap: 13px;
-      color: #0b5e58;
-      font-family: "Songti SC", "SimSun", serif;
-      font-size: 25px;
+      gap: 12px;
+      font: 800 24px/1.2 "Songti SC", "SimSun", serif;
     }
 
     .icon {
       width: 38px;
       height: 38px;
-      border-radius: 999px;
+      flex: 0 0 auto;
       display: grid;
       place-items: center;
+      border-radius: 999px;
       background: var(--jade);
       color: #fff;
-      font-family: Inter, sans-serif;
-      font-size: 18px;
-      font-weight: 800;
+      font: 900 16px/1 "KaiTi", "STKaiti", serif;
+      box-shadow: 0 10px 24px rgba(10, 116, 109, .18);
     }
 
     .copy {
-      margin-top: 14px;
-      color: var(--muted);
-      line-height: 1.82;
+      color: var(--ink-2);
+      line-height: 1.75;
+      font-size: 15px;
     }
 
+    .card h3 + .copy,
+    .copy + .frame-box,
+    .copy + .comparison,
+    .copy + .structure-board,
+    .copy + .pathway { margin-top: 18px; }
+
+    .view-link {
+      margin-top: 22px;
+      align-self: flex-start;
+      border: 1px solid rgba(10,116,109,.26);
+      border-radius: 999px;
+      background: var(--jade-soft);
+      color: var(--jade-dark);
+      padding: 9px 13px;
+      font-weight: 820;
+    }
+
+    .view-link:hover { box-shadow: var(--soft-shadow); }
+
     .frame-box {
-      margin-top: 18px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: #fbfdfb;
-      padding: 16px;
+      border: 1px solid var(--line-2);
+      border-radius: 8px;
+      background: rgba(255,255,255,.7);
+      padding: 18px;
     }
 
     .verb {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 112px minmax(0, 1fr);
       gap: 12px;
-      border-radius: 12px;
-      background: var(--jade-soft);
-      color: var(--jade);
-      padding: 13px 14px;
-      font-size: 22px;
-      font-weight: 900;
+      align-items: center;
+      margin-bottom: 16px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: rgba(230, 244, 239, .9);
+      color: var(--jade-dark);
+    }
+
+    .verb strong {
+      font-family: "Songti SC", "SimSun", serif;
+      font-size: 26px;
     }
 
     .formula {
-      color: var(--red);
-      font-weight: 850;
-      font-size: 16px;
-      text-align: right;
+      color: var(--cinnabar);
+      font-weight: 800;
     }
 
     .roles {
-      margin-top: 16px;
       display: grid;
       gap: 12px;
     }
 
     .role {
-      border-top: 1px solid #e8eee9;
-      padding-top: 12px;
-      color: #344252;
-      line-height: 1.72;
+      border-bottom: 1px solid var(--line);
+      padding: 0 0 12px;
+      color: #273444;
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .role:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
     }
 
     .role strong { color: var(--ink); }
-    .role em { color: var(--jade); font-style: normal; font-weight: 760; }
+    .role em { color: var(--jade); font-style: normal; font-weight: 780; }
 
-    .arc-board {
-      margin-top: 18px;
-      overflow: hidden;
+    .structure-board {
+      border: 1px solid var(--line-2);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.78), rgba(248,245,238,.72));
+      padding: 18px;
     }
 
     .arc-svg {
       width: 100%;
-      height: 136px;
+      height: 146px;
+      display: block;
       overflow: visible;
+      margin-bottom: 8px;
     }
 
     .tokens {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(74px, 1fr));
-      gap: 8px;
+      grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
+      gap: 10px;
     }
 
     .token {
-      border: 1px solid #dce6df;
-      border-radius: 12px;
-      background: #fbfdfb;
-      padding: 9px 8px;
+      min-height: 70px;
+      border: 1px solid rgba(203, 222, 216, .9);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      gap: 4px;
+      background: rgba(255,255,255,.82);
       text-align: center;
     }
 
-    .token strong { display: block; font-size: 18px; }
-    .token span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+    .token strong {
+      font-family: "Songti SC", "SimSun", serif;
+      font-size: 22px;
+    }
+
+    .token span {
+      color: var(--jade-dark);
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .tree {
+      display: grid;
+      gap: 12px;
+    }
+
+    .tree-line {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,253,248,.72);
+      padding: 13px 14px;
+      line-height: 1.6;
+    }
+
+    .tree-line b {
+      color: var(--jade-dark);
+      margin-right: 8px;
+    }
 
     .comparison {
-      margin-top: 18px;
-      border: 1px solid #e6d8c7;
-      border-radius: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
       overflow: hidden;
-      font-size: 14px;
+      background: rgba(255,255,255,.76);
     }
 
     .row {
       display: grid;
-      grid-template-columns: 128px minmax(0, 1fr);
-      border-top: 1px solid #ece4d8;
+      grid-template-columns: 124px minmax(0, 1fr);
+      min-height: 64px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .row:first-child { border-top: 0; }
-    .row b,
-    .row span {
-      padding: 13px 14px;
-      line-height: 1.68;
-    }
+    .row:last-child { border-bottom: 0; }
 
     .row b {
-      background: #fffaf0;
-      color: #65470d;
+      padding: 14px;
+      background: rgba(255,247,223,.62);
+      color: #6d4c14;
+      line-height: 1.55;
     }
 
-    .row span { color: #3f4b5b; }
-
-    .teaching {
-      margin-top: 18px;
-      border: 1px solid #efd8d3;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #fff7f5, #fffdf9);
-      padding: 18px;
+    .row span {
+      padding: 14px 16px;
+      color: #2d3a4b;
+      line-height: 1.72;
     }
 
-    .teaching h4 {
-      margin: 0;
-      color: var(--red);
-      font-size: 20px;
-      font-family: "Songti SC", "SimSun", serif;
-    }
-
-    .teaching ul {
-      margin: 12px 0 0;
-      padding-left: 20px;
-      color: #5b4b45;
-      line-height: 1.92;
-    }
-
-    .sections {
-      margin-top: 24px;
+    .pathway {
       display: grid;
-      gap: 18px;
+      gap: 12px;
     }
 
-    .section {
-      padding: 28px;
-      scroll-margin-top: 112px;
-    }
-
-    .section-grid {
-      margin-top: 18px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .mini {
+    .path-step,
+    .construction-card,
+    .note-card {
       border: 1px solid var(--line);
-      border-radius: 14px;
-      background: #fff;
-      padding: 16px;
-      min-height: 128px;
+      border-radius: 8px;
+      background: rgba(255,255,255,.72);
+      padding: 17px;
     }
 
-    .mini strong {
+    .path-step strong,
+    .construction-card strong,
+    .note-card strong {
       display: block;
-      color: var(--jade);
-      font-size: 17px;
       margin-bottom: 8px;
+      color: var(--jade-dark);
+      font-size: 17px;
     }
 
-    .mini span {
-      color: var(--muted);
-      line-height: 1.7;
+    .path-step span,
+    .construction-card span,
+    .note-card span {
+      color: var(--ink-2);
+      line-height: 1.72;
       font-size: 14px;
     }
 
+    .note-card.alert {
+      background: linear-gradient(135deg, rgba(255,240,235,.76), rgba(255,253,248,.9));
+      border-color: rgba(184, 74, 56, .24);
+    }
+
+    .note-card.alert strong { color: var(--cinnabar); }
+
+    .teaching-list {
+      margin: 18px 0 0;
+      padding-left: 20px;
+      color: #2f3c4d;
+      line-height: 1.8;
+    }
+
     .more-grid {
-      margin-top: 18px;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 14px;
+      margin-top: 18px;
     }
 
     .more-card {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background:
-        linear-gradient(145deg, rgba(255,255,255,.93), rgba(255,255,255,.98)),
-        radial-gradient(circle at 100% 100%, rgba(11, 111, 104, .08), transparent 48%);
-      padding: 16px;
+      width: 100%;
+      min-height: 92px;
       text-align: left;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.9), rgba(248,245,238,.78));
+      padding: 16px;
     }
 
     .more-card strong {
       display: block;
-      color: var(--jade);
-      font-size: 17px;
+      color: var(--jade-dark);
+      font: 800 17px/1.35 "Songti SC", "SimSun", serif;
     }
 
     .more-card span {
       display: block;
-      margin-top: 8px;
+      margin-top: 10px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .footer-note {
+      margin-top: 28px;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
       color: var(--muted);
       font-size: 13px;
-      line-height: 1.55;
+      line-height: 1.7;
     }
 
-    @media (max-width: 1120px) {
+    @media (max-width: 1180px) {
       .topbar-inner { align-items: flex-start; flex-direction: column; }
-      .nav { flex-wrap: wrap; gap: 18px 26px; }
-      .hero, .overview { grid-template-columns: 1fr; }
-      .hero-copy { padding-left: 24px; }
-      .section-grid { grid-template-columns: repeat(2, 1fr); }
-      .more-grid { grid-template-columns: repeat(2, 1fr); }
+      .brand { min-width: 0; }
+      .nav { width: 100%; }
+      .hero, .two-grid, .home-grid { grid-template-columns: 1fr; }
+      .three-grid, .more-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .plum-stage { min-height: 310px; }
     }
 
-    @media (max-width: 700px) {
-      .wrap, .topbar-inner { padding-left: 16px; padding-right: 16px; }
-      .hero { margin-left: -16px; margin-right: -16px; padding: 28px 16px; }
-      .input-row, .section-grid, .more-grid { grid-template-columns: 1fr; }
+    @media (max-width: 760px) {
+      .topbar-inner, .page { padding-left: 18px; padding-right: 18px; }
+      .brand { align-items: flex-start; }
+      .seal { width: 46px; height: 46px; }
+      .subtitle { font-size: 13px; }
+      .hero { border-radius: 0; margin-left: -18px; margin-right: -18px; border-left: 0; border-right: 0; }
+      .plum-stage, .workbench { padding: 28px 20px; }
+      .input-row { grid-template-columns: 1fr; }
+      .current-strip { grid-template-columns: 1fr; }
+      .confidence { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: 12px; text-align: left; }
+      .section-head { grid-template-columns: 1fr; }
+      .three-grid, .more-grid { grid-template-columns: 1fr; }
       .row { grid-template-columns: 1fr; }
-      .row b { padding-bottom: 4px; }
-      .row span { padding-top: 4px; }
-      h1 { font-size: 30px; }
-      .nav { display: none; }
     }
   </style>
 </head>
@@ -524,96 +738,234 @@
         <div class="seal">析</div>
         <div>
           <h1>汉语多维语法分析导览</h1>
-          <p class="subtitle">从句法结构、谓词角色、汉语构式到教学转化</p>
+          <p class="subtitle">把一个句子拆成结构、角色、构式、信息组织与教学解释</p>
         </div>
       </div>
       <nav class="nav" aria-label="页面导航">
-        <a href="#home">首页</a>
-        <a href="#syntax">句法结构</a>
-        <a href="#roles">谓词角色</a>
-        <a href="#constructions">汉语构式</a>
-        <a href="#information">信息组织</a>
-        <a href="#teaching">教学转化</a>
+        <button class="active" data-nav="home">首页</button>
+        <button data-nav="syntax">句法结构</button>
+        <button data-nav="roles">谓词角色</button>
+        <button data-nav="constructions">汉语构式</button>
+        <button data-nav="information">信息组织</button>
+        <button data-nav="teaching">教学转化</button>
       </nav>
     </div>
   </header>
 
-  <main class="wrap" id="home">
-    <section class="hero">
-      <div class="hero-copy">
-        <div class="hero-kicker">输入句子</div>
-        <p>输入或选择一个汉语句子，页面会从多个语法层面展开分析：先看结构，再看角色，再回到汉语表达和课堂解释。</p>
+  <main class="page">
+    <section class="hero" aria-label="句子输入">
+      <div class="plum-stage">
+        <div>
+          <div class="kicker">Grammar Studio</div>
+          <h2>从一个句子进入多维语法分析</h2>
+          <p>输入或选择一个汉语句子。页面会先生成总览，再把分析分别放入不同板块，读者可以按自己的阅读路径进入。</p>
+        </div>
+        <div class="chapter-mark">配价不是唯一答案，而是谓词角色层的一种入口。</div>
       </div>
+
       <div class="workbench">
         <div class="input-row">
-          <textarea id="sentenceInput" maxlength="200">小明把书放在桌子上。</textarea>
+          <textarea id="sentenceInput" maxlength="220">小明把书放在桌子上。</textarea>
           <button class="btn primary" id="analyzeBtn">分析句子</button>
           <button class="btn secondary" id="randomBtn">随机示例</button>
         </div>
         <div class="examples" id="examples"><span class="examples-label">示例句子：</span></div>
-        <p class="status" id="status">请选择一个例句，或输入自己的句子，开启多维语法分析。</p>
+        <p class="status" id="status">请选择一个例句，或输入自己的句子。分析结果会按板块展开。</p>
+        <div class="current-strip">
+          <div>
+            <strong id="currentSentence">小明把书放在桌子上。</strong>
+            <span id="currentSummary">当前句子将从句法结构、谓词角色、汉语构式和信息组织四个方向展开。</span>
+          </div>
+          <div class="confidence"><span id="confidenceText">本地</span><small>分析来源</small></div>
+        </div>
       </div>
     </section>
 
-    <section class="overview" aria-label="语法分析概览">
-      <article class="card" id="roles">
-        <h3><span class="icon">一</span>谓词角色分析</h3>
-        <p class="copy">这一层把配价语法、格语法和语义角色放在一起：动词需要几个角色？这些角色分别是什么？</p>
-        <div class="frame-box">
-          <div class="verb"><span id="verbText">放</span><span class="formula" id="valencyFrame">施事 + 受事 + 处所</span></div>
-          <div class="roles" id="roleList"></div>
+    <section class="view active" id="view-home">
+      <div class="section-head">
+        <div>
+          <h2>阅读入口</h2>
+          <p>首页只保留分析入口和总体导览。真正的分析内容已经拆到各个板块中，避免所有内容挤在同一屏里。</p>
         </div>
-        <p class="copy" id="valencyExplanation"></p>
-      </article>
-
-      <article class="card" id="syntax">
-        <h3><span class="icon">二</span>句法结构分析</h3>
-        <p class="copy">这一层包含层次分析和依存分析：句子怎样分块？词与词之间怎样连接？</p>
-        <div class="arc-board">
-          <svg class="arc-svg" id="arcSvg" viewBox="0 0 720 136" preserveAspectRatio="none"></svg>
-          <div class="tokens" id="tokens"></div>
-        </div>
-        <p class="copy" id="dependencyInsight"></p>
-      </article>
-
-      <article class="card">
-        <h3><span class="icon">三</span>多维视角比较</h3>
-        <p class="copy">同一句子可以从句法、语义、构式和信息组织等角度观察。不同视角解释的是不同层面。</p>
-        <div class="comparison" id="comparison"></div>
-        <div class="teaching" id="teaching">
-          <h4>教学提示</h4>
-          <ul id="teachingList"></ul>
-        </div>
-      </article>
+        <span class="section-tag">Overview</span>
+      </div>
+      <div class="home-grid">
+        <article class="card feature">
+          <div>
+            <h3><span class="icon">句</span>句法结构</h3>
+            <p class="copy">层次分析看“怎样分块”，依存分析看“谁依存谁”。这一层关注形式结构。</p>
+          </div>
+          <button class="view-link" data-jump="syntax">进入句法结构</button>
+        </article>
+        <article class="card feature">
+          <div>
+            <h3><span class="icon">谓</span>谓词角色</h3>
+            <p class="copy">配价、格语法、语义角色共同回答：这个谓词需要哪些参与者，它们承担什么角色。</p>
+          </div>
+          <button class="view-link" data-jump="roles">进入谓词角色</button>
+        </article>
+        <article class="card feature">
+          <div>
+            <h3><span class="icon">构</span>汉语构式</h3>
+            <p class="copy">把字句、存现句、被字句、连动句、兼语句、述补结构等，是汉语表达机制的关键入口。</p>
+          </div>
+          <button class="view-link" data-jump="constructions">进入汉语构式</button>
+        </article>
+        <article class="card feature">
+          <div>
+            <h3><span class="icon">教</span>教学转化</h3>
+            <p class="copy">把学术语法转成教师可讲、学生能懂的解释路径、例句梯度和课堂活动。</p>
+          </div>
+          <button class="view-link" data-jump="teaching">进入教学转化</button>
+        </article>
+      </div>
     </section>
 
-    <div class="sections">
-      <section class="section" id="constructions">
-        <h2><span class="icon">构</span>汉语构式层</h2>
-        <p class="copy">这一层回答：这个句子属于哪类汉语结构？它能解释“把”字句、被字句、存现句、处所句、连动句、兼语句、述补结构等典型汉语现象。</p>
-        <div class="section-grid">
-          <div class="mini"><strong>把字句</strong><span>突出受事和处置结果，例如“把书放在桌子上”。</span></div>
-          <div class="mini"><strong>存现句</strong><span>从处所出发展示存在状态，例如“台上坐着主席团”。</span></div>
-          <div class="mini"><strong>述补结构</strong><span>通过补语说明动作结果、趋向或可能性。</span></div>
+    <section class="view" id="view-syntax">
+      <div class="section-head">
+        <div>
+          <h2>句法结构：层次分析与依存分析</h2>
+          <p>这一板块只处理形式结构。层次分析把句子拆成短语和结构单位；依存分析把词与词之间的支配关系画出来。</p>
         </div>
-      </section>
+        <span class="section-tag">Syntax</span>
+      </div>
+      <div class="two-grid">
+        <article class="card">
+          <h3><span class="icon">层</span>层次/成分分析</h3>
+          <p class="copy">先把句子按可解释的结构层级拆开，而不是直接把所有关系都归到语义角色里。</p>
+          <div class="tree" id="constituencyBox"></div>
+        </article>
+        <article class="card">
+          <h3><span class="icon">依</span>依存结构</h3>
+          <p class="copy">依存图强调核心词及其附属成分，适合展示动词作为句法组织中心的方式。</p>
+          <div class="structure-board">
+            <svg class="arc-svg" id="arcSvg" viewBox="0 0 720 150" preserveAspectRatio="none"></svg>
+            <div class="tokens" id="tokens"></div>
+          </div>
+          <p class="copy" id="dependencyInsight" style="margin-top:16px;"></p>
+        </article>
+      </div>
+    </section>
 
-      <section class="section" id="information">
-        <h2><span class="icon">信</span>信息组织层</h2>
-        <p class="copy">这一层回答：说话人先让读者注意什么？重点放在哪里？它解释话题-述题、焦点、旧信息/新信息、语序突显和受事前置等问题。</p>
-        <div class="section-grid">
-          <div class="mini"><strong>话题-述题</strong><span>如“台上 / 坐着主席团”，先给观察场域，再说明状态。</span></div>
-          <div class="mini"><strong>焦点</strong><span>通过语序、重音或结构安排突出最重要的信息。</span></div>
-          <div class="mini"><strong>语序突显</strong><span>如受事前置，让学习者看到汉语信息组织的灵活性。</span></div>
+    <section class="view" id="view-roles">
+      <div class="section-head">
+        <div>
+          <h2>谓词角色：配价、格语法与语义角色</h2>
+          <p>这一板块专门处理谓词和参与者。配价关注“几个强制论元”，格语法关注“论元性质”，语义角色关注“事件中的功能”。</p>
         </div>
-      </section>
+        <span class="section-tag">Predicate Roles</span>
+      </div>
+      <div class="three-grid">
+        <article class="card">
+          <h3><span class="icon">配</span>配价语法</h3>
+          <p class="copy">看动词为了成句通常需要哪些论元。</p>
+          <div class="frame-box">
+            <div class="verb"><strong id="verbText">放</strong><span class="formula" id="valencyFrame">施事 + 受事 + 处所</span></div>
+            <div class="roles" id="roleList"></div>
+          </div>
+          <p class="copy" id="valencyExplanation" style="margin-top:16px;"></p>
+        </article>
+        <article class="card">
+          <h3><span class="icon">格</span>格语法</h3>
+          <p class="copy">同样的“主语/宾语”，可能在事件中承担完全不同的深层格。</p>
+          <div class="pathway">
+            <div class="path-step"><strong id="casePattern">施事格 + 受事格</strong><span id="caseInsight">格语法补充解释论元性质。</span></div>
+            <div class="path-step"><strong>适合解释</strong><span>心理动词、处所前置、工具成分、双宾结构和“把”字句中的受事突显。</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <h3><span class="icon">角</span>语义角色</h3>
+          <p class="copy">用事件角色把“谁做、谁受影响、在哪里、用什么、给谁”等关系说清楚。</p>
+          <div class="pathway">
+            <div class="path-step"><strong id="thetaGrid">V &lt;Agent, Patient&gt;</strong><span id="thetaPrinciple">语义角色解释事件结构。</span></div>
+            <div class="path-step"><strong>课堂提醒</strong><span>语义角色不等同于主语、宾语。它解释意义功能，句法成分解释形式位置。</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
 
-      <section class="section">
-        <h2><span class="icon">例</span>更多示例探索</h2>
-        <p class="copy">换一个动词或构式，就能看到分析层次如何变化。</p>
+    <section class="view" id="view-constructions">
+      <div class="section-head">
+        <div>
+          <h2>汉语构式：把句子放回汉语表达系统</h2>
+          <p>构式层处理“这种句子在汉语里属于什么表达模式”。它不是配价、格语法或依存语法的替代品，而是解释汉语特色表达的另一个层面。</p>
+        </div>
+        <span class="section-tag">Constructions</span>
+      </div>
+      <div class="two-grid">
+        <article class="card">
+          <h3><span class="icon">本</span>当前构式</h3>
+          <p class="copy" id="constructionInsight">当前句子的构式说明。</p>
+          <div class="pathway" style="margin-top:18px;">
+            <div class="path-step"><strong id="constructionType">把字句</strong><span id="constructionDetail">突出受事和处置结果。</span></div>
+          </div>
+        </article>
+        <article class="card">
+          <h3><span class="icon">谱</span>常见汉语构式谱系</h3>
+          <div class="three-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top:18px;">
+            <div class="construction-card"><strong>把字句</strong><span>突出受事、处置过程和结果达成。</span></div>
+            <div class="construction-card"><strong>被字句</strong><span>突出受影响对象和事件结果。</span></div>
+            <div class="construction-card"><strong>存现句</strong><span>从处所或时间出发展示存在、出现、消失。</span></div>
+            <div class="construction-card"><strong>处所句</strong><span>以空间场域组织信息，如“台上坐着主席团”。</span></div>
+            <div class="construction-card"><strong>连动/兼语</strong><span>展示动作链和角色连续变化。</span></div>
+            <div class="construction-card"><strong>述补结构</strong><span>用补语说明结果、趋向、程度或可能性。</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="view" id="view-information">
+      <div class="section-head">
+        <div>
+          <h2>信息组织：话题、焦点与语序突显</h2>
+          <p>这一板块解释说话人如何安排信息：先让读者注意什么，重点放在哪里，哪些成分通过语序获得突显。</p>
+        </div>
+        <span class="section-tag">Information Structure</span>
+      </div>
+      <div class="two-grid">
+        <article class="card">
+          <h3><span class="icon">题</span>话题-述题</h3>
+          <div class="comparison" id="topicBox" style="margin-top:18px;"></div>
+        </article>
+        <article class="card">
+          <h3><span class="icon">焦</span>焦点与突显</h3>
+          <div class="pathway" style="margin-top:18px;">
+            <div class="path-step"><strong>旧信息 / 新信息</strong><span id="infoOldNew">句首通常提供读者容易定位的信息，后续部分推进新信息。</span></div>
+            <div class="path-step"><strong>语序突显</strong><span id="infoProminence">受事前置、处所前置或话题前置，都可能是信息组织策略。</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="view" id="view-teaching">
+      <div class="section-head">
+        <div>
+          <h2>教学转化：从语法理论到课堂解释</h2>
+          <p>这一板块把分析结果转化成读者友好的讲解路径。目标不是堆概念，而是帮助教师知道先讲什么、怎么举例、如何避免误解。</p>
+        </div>
+        <span class="section-tag">Pedagogy</span>
+      </div>
+      <div class="two-grid">
+        <article class="card">
+          <h3><span class="icon">讲</span>课堂解释路径</h3>
+          <ul class="teaching-list" id="teachingList"></ul>
+        </article>
+        <article class="card">
+          <h3><span class="icon">辨</span>不要混在一起的维度</h3>
+          <div class="pathway" style="margin-top:18px;">
+            <div class="note-card alert"><strong>配价不是总框架</strong><span>配价适合解释谓词需要几个论元，但不能代替层次分析、构式分析和信息结构分析。</span></div>
+            <div class="note-card"><strong>句法与语义分层</strong><span>主语、宾语是形式位置；施事、受事、经验者、处所等是语义角色。</span></div>
+            <div class="note-card"><strong>教学解释要递进</strong><span>先用例句看懂结构，再引入术语，最后比较不同句式。</span></div>
+          </div>
+        </article>
+      </div>
+      <article class="card" style="margin-top:18px;">
+        <h3><span class="icon">例</span>更多示例探索</h3>
+        <p class="copy">换一个动词或构式，可以看到分析层次如何变化。</p>
         <div class="more-grid" id="moreExamples"></div>
-      </section>
-    </div>
+      </article>
+      <p class="footer-note">页面会优先呈现本地可解释分析；如果部署环境配置了模型接口，会在后台增强分析结果。界面不向读者显示工程状态。</p>
+    </section>
   </main>
 
   <script>
@@ -627,6 +979,7 @@
     ];
 
     let result = null;
+    let activeView = "home";
 
     function role(label, english, word, note) {
       return { label, english, word, note };
@@ -666,7 +1019,7 @@
           verb: "坐着",
           valency: { type: "二价存在动词", frame: "处所 + 存在主体", explanation: "动词把处所和存在主体连接起来，核心不是谁主动坐，而是某处呈现某种状态。", slots: [role("处所", "Location", "台上", "空间话题先行"), role("存在主体", "Theme", "主席团", "被呈现的实体")] },
           caseGrammar: { pattern: "处所格 + 主题格", insight: "格语法比传统主谓法更容易解释处所前置句。" },
-          dependency: { root: "坐着", insight: "依存分析把“坐着”作为根节点，同时保留“台上”的处所依存关系。", relations: [{ from: "台上", to: "坐着", rel: "处所", color: "#b1842f" }, { from: "主席团", to: "坐着", rel: "存在主体", color: "#0b6f68" }] },
+          dependency: { root: "坐着", insight: "依存分析把“坐着”作为根节点，同时保留“台上”的处所依存关系。", relations: [{ from: "台上", to: "坐着", rel: "处所", color: "#b1812a" }, { from: "主席团", to: "坐着", rel: "存在主体", color: "#0a746d" }] },
           construction: { type: "处所存现句", insight: "句子从处所出发，说明该处存在什么状态或实体。" },
           topicComment: { topic: "台上", comment: "坐着主席团", insight: "先给观察场域，再说明场域中的状态，比硬判“台上”为主语更贴近汉语。" },
           theta: { grid: "坐着 <Location, Theme>", principle: "每个论元获得一个清晰的语义角色，不必强行套入施事/受事。" },
@@ -684,7 +1037,7 @@
           verb,
           valency: { type: "二价心理动词", frame: "经验者 + 刺激物", explanation: "心理动词不是典型施事动作，而是经验者被某个对象触发心理状态。", slots: [role("经验者", "Experiencer", "李四/他", "经历心理状态的人"), role("刺激物", "Stimulus", "狗/对象", "引发心理状态的对象")] },
           caseGrammar: { pattern: "经验格 + 刺激格", insight: "格语法能避免把所有句首人称都粗暴解释为主动施事。" },
-          dependency: { root: verb, insight: "依存语法保留形式关系，语义角色进一步解释关系性质。", relations: [{ from: "李四/他", to: verb, rel: "经验者", color: "#496f94" }, { from: "狗/对象", to: verb, rel: "刺激物", color: "#b84c3d" }] },
+          dependency: { root: verb, insight: "依存语法保留形式关系，语义角色进一步解释关系性质。", relations: [{ from: "李四/他", to: verb, rel: "经验者", color: "#486e91" }, { from: "狗/对象", to: verb, rel: "刺激物", color: "#b84a38" }] },
           construction: { type: "心理状态句", insight: "句子表达经验者的心理反应，而非一个外显动作。" },
           topicComment: { topic: "李四/他", comment: `${verb}狗/对象`, insight: "句首实体作为话题，后文说明其心理状态。" },
           theta: { grid: `${verb} <Experiencer, Stimulus>`, principle: "心理动词显示：语义角色不等同于传统主语宾语。" },
@@ -701,7 +1054,7 @@
           verb: "送给/告诉",
           valency: { type: "三价动词", frame: "施事 + 受领者 + 客体", explanation: "转移类动词需要动作发出者、接受者和被转移对象三类角色。", slots: [role("施事", "Agent", "妈妈/说话人", "发出转移动作"), role("受领者", "Recipient", "孩子/对方", "接受对象"), role("客体", "Theme", "书/信息", "被转移的内容")] },
           caseGrammar: { pattern: "施事格 + 受领格 + 主题格", insight: "格语法可以把双宾结构、介词“给”的功能讲清楚。" },
-          dependency: { root: "送给/告诉", insight: "依存关系区分直接宾语和间接宾语，利于做机器可读句法图。", relations: [{ from: "妈妈/说话人", to: "送给/告诉", rel: "施事", color: "#0b6f68" }, { from: "孩子/对方", to: "送给/告诉", rel: "受领者", color: "#b1842f" }, { from: "书/信息", to: "送给/告诉", rel: "客体", color: "#496f94" }] },
+          dependency: { root: "送给/告诉", insight: "依存关系区分直接宾语和间接宾语，利于做机器可读句法图。", relations: [{ from: "妈妈/说话人", to: "送给/告诉", rel: "施事", color: "#0a746d" }, { from: "孩子/对方", to: "送给/告诉", rel: "受领者", color: "#b1812a" }, { from: "书/信息", to: "送给/告诉", rel: "客体", color: "#486e91" }] },
           construction: { type: "转移类双宾/给字结构", insight: "句子强调物品、信息或行为从施事转向受领者。" },
           topicComment: { topic: "妈妈/说话人", comment: "把某物转移给某人", insight: "话题-述题视角可展示事件叙述的展开顺序。" },
           theta: { grid: "送给/告诉 <Agent, Recipient, Theme>", principle: "三价动词最适合演示谓词-论元结构。" },
@@ -722,7 +1075,7 @@
         verb,
         valency: { type: "三价动作动词", frame: `施事 + 受事 + ${thirdLabel}`, explanation: "核心动词不仅需要施事和受事，还常常需要目标处所、路径或工具来补足事件结构。", slots: [role("施事", "Agent", agent, "动作的发出者，通常有意识地推动事件发生"), role("受事", "Patient", patient, "动作所作用的对象，通常直接受到影响"), role(thirdLabel, thirdLabel === "工具" ? "Instrument" : "Location", third, "补足事件完成条件的成分")] },
         caseGrammar: { pattern: `施事格 + 受事格 + ${thirdLabel}格`, insight: "格语法能把“把”字句中的受事提前解释为语义突显，而不是简单倒装。" },
-        dependency: { root: verb, insight: "依存语法以动词为根，把标记、受事、处所/工具都挂接到事件核心上。", relations: [{ from: agent, to: verb, rel: "施事", color: "#0b6f68" }, { from: patient, to: verb, rel: "受事", color: "#b84c3d" }, { from: third, to: verb, rel: thirdLabel, color: "#496f94" }] },
+        dependency: { root: verb, insight: "依存语法以动词为根，把标记、受事、处所/工具都挂接到事件核心上。", relations: [{ from: agent, to: verb, rel: "施事", color: "#0a746d" }, { from: patient, to: verb, rel: "受事", color: "#b84a38" }, { from: third, to: verb, rel: thirdLabel, color: "#486e91" }] },
         construction: { type: sentence.includes("把") ? "把字句" : "动作叙述句", insight: sentence.includes("把") ? "“把”字句突出受事和处置结果。" : "句子围绕动作事件组织参与角色。" },
         topicComment: { topic: agent, comment: sentence.replace(/[。！？]/g, "").replace(agent, ""), insight: "汉语句子可从人物、受事或处所展开，话题位置体现信息组织策略。" },
         theta: { grid: `${verb} <Agent, Patient, ${thirdLabel === "工具" ? "Instrument" : "Location"}>`, principle: "一个论元只承担一个核心角色，一个核心角色只分配给一个论元。" },
@@ -760,15 +1113,40 @@
       }
     }
 
+    function switchView(view) {
+      activeView = view;
+      document.querySelectorAll(".view").forEach(section => {
+        section.classList.toggle("active", section.id === `view-${view}`);
+      });
+      document.querySelectorAll("[data-nav]").forEach(button => {
+        button.classList.toggle("active", button.dataset.nav === view);
+      });
+      history.replaceState(null, "", `#${view}`);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
     function render() {
+      document.getElementById("currentSentence").textContent = result.sentence;
+      document.getElementById("currentSummary").textContent = `${result.construction.type}；${result.valency.type}；核心谓词为“${result.verb}”。`;
+      document.getElementById("confidenceText").textContent = result.source === "enhanced" ? "增强" : "本地";
       document.getElementById("verbText").textContent = result.verb;
       document.getElementById("valencyFrame").textContent = result.valency.frame;
       document.getElementById("valencyExplanation").textContent = result.valency.explanation;
+      document.getElementById("casePattern").textContent = result.caseGrammar.pattern;
+      document.getElementById("caseInsight").textContent = result.caseGrammar.insight;
+      document.getElementById("thetaGrid").textContent = result.theta.grid;
+      document.getElementById("thetaPrinciple").textContent = result.theta.principle;
       document.getElementById("dependencyInsight").textContent = result.dependency.insight;
+      document.getElementById("constructionType").textContent = result.construction.type;
+      document.getElementById("constructionDetail").textContent = result.construction.insight;
+      document.getElementById("constructionInsight").textContent = `当前句子的构式判断为“${result.construction.type}”。构式层关注它在汉语表达系统中的功能，而不是重复句法或角色分析。`;
+      document.getElementById("infoOldNew").textContent = `话题“${result.topicComment.topic}”为读者建立观察起点，述题“${result.topicComment.comment}”推进新信息。`;
+      document.getElementById("infoProminence").textContent = result.topicComment.insight;
       renderRoles();
       renderArcs();
       renderTokens();
-      renderComparison();
+      renderConstituency();
+      renderTopic();
       renderTeaching();
       renderMoreExamples();
     }
@@ -791,28 +1169,28 @@
     function renderArcs() {
       const svg = document.getElementById("arcSvg");
       const words = result.tokens.map(item => item.word);
-      svg.innerHTML = `<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#17212d"></path></marker></defs>`;
+      svg.innerHTML = `<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#18202c"></path></marker></defs>`;
       result.dependency.relations.slice(0, 5).forEach((rel, index) => {
         const from = Math.max(0, words.indexOf(rel.from));
         const to = Math.max(0, words.indexOf(rel.to));
-        const x1 = 70 + from * 116;
-        const x2 = 70 + to * 116;
-        const y = 102;
-        const h = 30 + Math.abs(from - to) * 13 + index * 4;
+        const x1 = 62 + from * 118;
+        const x2 = 62 + to * 118;
+        const y = 112;
+        const h = 32 + Math.abs(from - to) * 14 + index * 5;
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", `M ${x1} ${y} C ${x1} ${y - h}, ${x2} ${y - h}, ${x2} ${y}`);
         path.setAttribute("fill", "none");
-        path.setAttribute("stroke", rel.color || "#0b6f68");
-        path.setAttribute("stroke-width", "2");
+        path.setAttribute("stroke", rel.color || "#0a746d");
+        path.setAttribute("stroke-width", "2.1");
         path.setAttribute("marker-end", "url(#arrow)");
         svg.appendChild(path);
         const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
         text.setAttribute("x", (x1 + x2) / 2);
-        text.setAttribute("y", Math.max(18, y - h - 4));
+        text.setAttribute("y", Math.max(18, y - h - 6));
         text.setAttribute("text-anchor", "middle");
-        text.setAttribute("fill", rel.color || "#0b6f68");
+        text.setAttribute("fill", rel.color || "#0a746d");
         text.setAttribute("font-size", "12");
-        text.setAttribute("font-weight", "760");
+        text.setAttribute("font-weight", "800");
         text.textContent = rel.rel;
         svg.appendChild(text);
       });
@@ -829,15 +1207,34 @@
       });
     }
 
-    function renderComparison() {
-      const rows = [
-        ["句法结构", result.dependency.insight],
-        ["谓词角色", result.valency.type + "： " + result.valency.frame + "。 " + result.caseGrammar.insight],
-        ["汉语构式", result.construction.type + "。 " + result.construction.insight],
-        ["信息组织", result.topicComment.topic + " / " + result.topicComment.comment + "。 " + result.topicComment.insight],
-        ["语义角色", result.theta.grid + "。 " + result.theta.principle]
+    function renderConstituency() {
+      const box = document.getElementById("constituencyBox");
+      const sentenceCore = result.sentence.replace(/[。！？]/g, "");
+      const predicate = result.verb;
+      const roles = (result.valency.slots || []).map(item => `${item.label}：${item.word}`).join("；") || "无强制论元";
+      const lines = [
+        ["整句", sentenceCore],
+        ["核心谓词", predicate],
+        ["结构单位", roles],
+        ["层次说明", result.construction.insight]
       ];
-      const box = document.getElementById("comparison");
+      box.innerHTML = "";
+      lines.forEach(([label, text]) => {
+        const div = document.createElement("div");
+        div.className = "tree-line";
+        div.innerHTML = `<b>${label}</b>${text}`;
+        box.appendChild(div);
+      });
+    }
+
+    function renderTopic() {
+      const rows = [
+        ["话题", result.topicComment.topic],
+        ["述题", result.topicComment.comment],
+        ["解释", result.topicComment.insight],
+        ["相关构式", result.construction.type]
+      ];
+      const box = document.getElementById("topicBox");
       box.innerHTML = "";
       rows.forEach(row => {
         const div = document.createElement("div");
@@ -865,7 +1262,7 @@
         const btn = document.createElement("button");
         btn.className = "more-card";
         btn.innerHTML = `<strong>${item}</strong><span>${preview.construction.type} · ${preview.valency.frame}</span>`;
-        btn.addEventListener("click", () => setSentence(item, true));
+        btn.addEventListener("click", () => setSentence(item, true, "home"));
         box.appendChild(btn);
       });
     }
@@ -875,18 +1272,22 @@
       const status = document.getElementById("status");
       const button = document.getElementById("analyzeBtn");
       button.textContent = "分析中...";
-      status.textContent = "正在生成多维语法分析...";
+      button.disabled = true;
+      status.textContent = "正在整理多维语法分析结果...";
       result = await enhancedAnalyze(input);
       render();
-      status.textContent = "已生成分析。可以从句法结构、谓词角色、汉语构式和信息组织几个层面阅读。";
+      status.textContent = "分析已更新。请从上方导航进入不同板块阅读。";
       button.textContent = "分析句子";
+      button.disabled = false;
+      switchView("home");
     }
 
-    function setSentence(sentence, autoAnalyze = false) {
+    function setSentence(sentence, autoAnalyze = false, targetView = activeView) {
       document.getElementById("sentenceInput").value = sentence;
       result = localAnalyze(sentence);
       render();
-      document.getElementById("status").textContent = autoAnalyze ? "已载入例句。可以从多个语法层面阅读。" : "请选择一个例句，或输入自己的句子，开启多维语法分析。";
+      document.getElementById("status").textContent = autoAnalyze ? "已载入例句。请从导航进入不同板块阅读。" : "请选择一个例句，或输入自己的句子。分析结果会按板块展开。";
+      switchView(targetView);
     }
 
     function init() {
@@ -895,16 +1296,29 @@
         const btn = document.createElement("button");
         btn.className = "example";
         btn.textContent = item;
-        btn.addEventListener("click", () => setSentence(item, true));
+        btn.addEventListener("click", () => setSentence(item, true, "home"));
         examplesBox.appendChild(btn);
       });
+
+      document.querySelectorAll("[data-nav]").forEach(button => {
+        button.addEventListener("click", () => switchView(button.dataset.nav));
+      });
+      document.querySelectorAll("[data-jump]").forEach(button => {
+        button.addEventListener("click", () => switchView(button.dataset.jump));
+      });
+
       document.getElementById("analyzeBtn").addEventListener("click", analyze);
       document.getElementById("randomBtn").addEventListener("click", () => {
         const pick = examples[Math.floor(Math.random() * examples.length)];
-        setSentence(pick, true);
+        setSentence(pick, true, "home");
       });
+
       result = localAnalyze(document.getElementById("sentenceInput").value);
       render();
+      const initial = location.hash.replace("#", "");
+      if (["home", "syntax", "roles", "constructions", "information", "teaching"].includes(initial)) {
+        switchView(initial);
+      }
     }
 
     init();
