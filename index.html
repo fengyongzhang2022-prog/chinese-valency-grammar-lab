@@ -3,59 +3,73 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>汉语配价语法交互导览</title>
+  <title>汉语多维语法分析导览</title>
   <style>
     :root {
-      --ink: #17212f;
-      --muted: #657284;
-      --line: #dbe5df;
-      --paper: #f8faf8;
-      --jade: #0d6b63;
-      --jade-soft: #eaf6f2;
-      --red: #b14b3d;
-      --red-soft: #fff1ee;
-      --gold: #b8872b;
-      --gold-soft: #fff7e3;
-      --blue: #486f92;
+      --ink: #17212d;
+      --ink-soft: #344154;
+      --muted: #687383;
+      --paper: #fffdf8;
+      --wash: #f5f8f5;
+      --line: #dfe8e3;
+      --jade: #0b6f68;
+      --jade-soft: #e8f5f1;
+      --red: #b84c3d;
+      --red-soft: #fff0ec;
+      --gold: #b1842f;
+      --gold-soft: #fff7e4;
+      --blue: #496f94;
       --blue-soft: #edf5fb;
-      --shadow: 0 18px 42px rgba(23, 33, 47, .08);
+      --shadow: 0 18px 42px rgba(23, 33, 45, .08);
       --radius: 18px;
     }
+
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       color: var(--ink);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
       background:
-        radial-gradient(circle at 5% 12%, rgba(13, 107, 99, .08), transparent 24%),
-        radial-gradient(circle at 92% 3%, rgba(177, 75, 61, .07), transparent 20%),
-        linear-gradient(180deg, #fff 0 150px, var(--paper) 150px 100%);
+        radial-gradient(circle at 8% 5%, rgba(11, 111, 104, .07), transparent 26%),
+        radial-gradient(circle at 94% 2%, rgba(184, 76, 61, .06), transparent 22%),
+        linear-gradient(180deg, #fff 0 170px, #f7faf7 170px 100%);
     }
+
     button, textarea { font: inherit; }
     button { cursor: pointer; }
-    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3, h4, p { margin: 0; }
+
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 50;
       border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, .92);
+      background: rgba(255, 255, 255, .94);
       backdrop-filter: blur(14px);
     }
+
     .topbar-inner {
       max-width: 1500px;
       margin: 0 auto;
-      padding: 20px 42px;
+      padding: 18px 42px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
+      gap: 26px;
     }
-    .brand { display: flex; align-items: center; gap: 16px; }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 360px;
+    }
+
     .seal {
-      width: 54px;
-      height: 54px;
-      border: 1px solid rgba(177, 75, 61, .35);
+      width: 56px;
+      height: 56px;
+      border: 1px solid rgba(184, 76, 61, .34);
       border-radius: 999px;
       display: grid;
       place-items: center;
@@ -63,146 +77,233 @@
       background: #fff;
       font-weight: 900;
       font-size: 20px;
-    }
-    h1 { font-size: clamp(27px, 2.6vw, 40px); line-height: 1.08; letter-spacing: .02em; font-family: "Songti SC", "SimSun", "Microsoft YaHei", serif; }
-    .subtitle { margin-top: 8px; color: var(--muted); font-size: 15px; letter-spacing: .04em; }
-    .pills { display: flex; gap: 38px; align-items: center; justify-content: flex-end; color: #2f3947; font-family: "Songti SC", "SimSun", serif; font-size: 16px; }
-    .pill { border: 0; border-radius: 0; background: transparent; padding: 0 0 8px; color: inherit; }
-    .pill:first-child { color: var(--jade); border-bottom: 3px solid var(--jade); }
-    .wrap { max-width: 1500px; margin: 0 auto; padding: 0 42px 44px; }
-    .intro {
-      margin-left: -42px;
-      margin-right: -42px;
-      padding: 42px;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background:
-        radial-gradient(circle at 6% 52%, rgba(13, 107, 99, .08), transparent 24%),
-        linear-gradient(90deg, rgba(235,242,240,.9), rgba(255,255,255,.98) 35%, rgba(255,255,255,.98));
-      display: grid;
-      grid-template-columns: 330px minmax(0, 1fr);
-      gap: 24px;
-      align-items: stretch;
-    }
-    .intro-note {
-      position: relative;
-      border: 0;
-      border-radius: 0;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.2), rgba(255,255,255,.2));
-      padding: 10px 20px 12px 78px;
-      box-shadow: none;
-      overflow: hidden;
-    }
-    .intro-note::before {
-      content: "";
-      position: absolute;
-      left: -40px;
-      bottom: -34px;
-      width: 260px;
-      height: 210px;
-      opacity: .18;
-      background:
-        radial-gradient(ellipse at 46% 78%, #6f8790 0 12%, transparent 13%),
-        linear-gradient(115deg, transparent 0 44%, #60797c 45% 46%, transparent 47%),
-        linear-gradient(80deg, transparent 0 55%, #60797c 56% 57%, transparent 58%);
-      filter: blur(.2px);
-    }
-    .eyebrow {
-      color: var(--red);
-      font-size: 22px;
-      letter-spacing: .28em;
-      text-transform: none;
-      font-weight: 800;
       font-family: "KaiTi", "STKaiti", serif;
     }
-    .intro-note h2 { display: none; }
-    .intro-note p { margin-top: 24px; color: #3f4a57; line-height: 2; font-size: 16px; max-width: 230px; }
-    .workbench {
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      padding: 2px 10px;
-      box-shadow: none;
-      align-self: center;
+
+    h1 {
+      font-family: "Songti SC", "SimSun", "Microsoft YaHei", serif;
+      font-size: clamp(28px, 2.7vw, 42px);
+      line-height: 1.08;
+      letter-spacing: .02em;
     }
+
+    .subtitle {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 15px;
+      letter-spacing: .03em;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      white-space: nowrap;
+      font-family: "Songti SC", "SimSun", serif;
+      font-size: 16px;
+    }
+
+    .nav a {
+      color: #313b4a;
+      text-decoration: none;
+      padding: 10px 0 9px;
+      border-bottom: 3px solid transparent;
+    }
+
+    .nav a:hover,
+    .nav a:first-child {
+      color: var(--jade);
+      border-bottom-color: var(--jade);
+    }
+
+    .wrap {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 0 42px 56px;
+    }
+
+    .hero {
+      margin-left: -42px;
+      margin-right: -42px;
+      min-height: 330px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(90deg, rgba(245, 250, 247, .92) 0%, rgba(255,255,255,.96) 38%, rgba(255,255,255,.98) 100%),
+        url("assets/plum-ink-bg.png") left center / 430px auto no-repeat;
+      display: grid;
+      grid-template-columns: 330px minmax(0, 1fr);
+      gap: 34px;
+      padding: 44px 42px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      padding-left: 80px;
+      position: relative;
+    }
+
+    .hero-copy::after {
+      content: "⌁";
+      position: absolute;
+      right: 12px;
+      top: 28px;
+      color: rgba(177, 132, 47, .35);
+      font-size: 42px;
+      font-family: serif;
+    }
+
+    .hero-kicker {
+      color: var(--red);
+      font-family: "KaiTi", "STKaiti", serif;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: .18em;
+    }
+
+    .hero-copy p {
+      margin-top: 22px;
+      max-width: 230px;
+      color: #3f4a57;
+      line-height: 2;
+      font-size: 16px;
+    }
+
+    .workbench {
+      align-self: center;
+      padding-right: 24px;
+    }
+
     .input-row {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 138px 124px;
-      gap: 12px;
+      gap: 14px;
       align-items: stretch;
-      padding: 0;
     }
+
     textarea {
       width: 100%;
-      min-height: 74px;
+      min-height: 76px;
       border: 1px solid var(--line);
-      border-radius: 7px;
-      background: #fff;
+      border-radius: 8px;
+      background: rgba(255,255,255,.94);
       outline: 0;
       resize: none;
       padding: 22px 24px;
       color: var(--ink);
       font-size: 18px;
-      font-weight: 500;
       line-height: 1.45;
+      box-shadow: inset 0 1px 0 rgba(0,0,0,.02);
     }
+
     .btn {
       border: 1px solid var(--line);
-      border-radius: 14px;
+      border-radius: 12px;
       background: #fff;
-      color: #293747;
-      padding: 12px 18px;
+      color: #253242;
+      padding: 12px 16px;
       font-weight: 760;
       transition: .18s ease;
     }
-    .btn:hover { transform: translateY(-1px); border-color: #a9cfc6; }
+
+    .btn:hover { transform: translateY(-1px); border-color: #aacfc7; }
+
     .btn.primary {
       border-color: transparent;
       background: var(--jade);
       color: #fff;
-      min-width: 128px;
-      box-shadow: 0 14px 28px rgba(13, 107, 99, .2);
+      box-shadow: 0 14px 30px rgba(11, 111, 104, .24);
     }
-    .btn.secondary { color: var(--jade); background: #fff; }
-    .examples { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-    .examples-label { color: var(--ink); font-weight: 760; }
+
+    .btn.secondary {
+      color: var(--jade);
+      background: #fff;
+    }
+
+    .examples {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .examples-label {
+      font-weight: 780;
+      color: var(--ink);
+    }
+
     .example {
       border: 1px solid var(--line);
       border-radius: 999px;
       background: #fff;
-      padding: 9px 13px;
-      color: #3b4654;
+      padding: 9px 14px;
+      color: #3d4856;
       font-size: 14px;
     }
-    .example:hover { background: var(--jade-soft); border-color: #a9d2c8; color: var(--jade); }
-    .status { margin-top: 16px; color: var(--muted); line-height: 1.7; }
-    .grid {
-      margin-top: 24px;
+
+    .example:hover {
+      background: var(--jade-soft);
+      border-color: #a9d4ca;
+      color: var(--jade);
+    }
+
+    .status {
+      margin-top: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .overview {
+      margin-top: 30px;
       display: grid;
-      grid-template-columns: 1fr 1fr 1.15fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.14fr);
       gap: 18px;
       align-items: start;
     }
-    .card {
+
+    .card,
+    .section {
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: rgba(255,255,255,.96);
-      padding: 26px 28px;
       box-shadow: var(--shadow);
     }
-    .card h3 { display: flex; align-items: center; gap: 13px; font-size: 25px; color: #0b5e58; font-family: "Songti SC", "SimSun", serif; }
+
+    .card {
+      padding: 26px 28px;
+      min-height: 100%;
+    }
+
+    .card h3,
+    .section h2 {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      color: #0b5e58;
+      font-family: "Songti SC", "SimSun", serif;
+      font-size: 25px;
+    }
+
     .icon {
       width: 38px;
       height: 38px;
       border-radius: 999px;
       display: grid;
       place-items: center;
-      color: #fff;
       background: var(--jade);
+      color: #fff;
+      font-family: Inter, sans-serif;
       font-size: 18px;
+      font-weight: 800;
     }
-    .card-copy { margin-top: 14px; color: var(--muted); line-height: 1.8; }
+
+    .copy {
+      margin-top: 14px;
+      color: var(--muted);
+      line-height: 1.82;
+    }
+
     .frame-box {
       margin-top: 18px;
       border: 1px solid var(--line);
@@ -210,6 +311,7 @@
       background: #fbfdfb;
       padding: 16px;
     }
+
     .verb {
       display: flex;
       align-items: center;
@@ -222,19 +324,47 @@
       font-size: 22px;
       font-weight: 900;
     }
-    .formula { color: var(--red); font-weight: 850; font-size: 16px; }
-    .roles { margin-top: 16px; display: grid; gap: 12px; }
+
+    .formula {
+      color: var(--red);
+      font-weight: 850;
+      font-size: 16px;
+      text-align: right;
+    }
+
+    .roles {
+      margin-top: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
     .role {
       border-top: 1px solid #e8eee9;
       padding-top: 12px;
       color: #344252;
-      line-height: 1.7;
+      line-height: 1.72;
     }
+
     .role strong { color: var(--ink); }
     .role em { color: var(--jade); font-style: normal; font-weight: 760; }
-    .arc-board { margin-top: 18px; overflow: hidden; }
-    .arc-svg { width: 100%; height: 136px; overflow: visible; }
-    .tokens { display: grid; grid-template-columns: repeat(auto-fit, minmax(74px, 1fr)); gap: 8px; }
+
+    .arc-board {
+      margin-top: 18px;
+      overflow: hidden;
+    }
+
+    .arc-svg {
+      width: 100%;
+      height: 136px;
+      overflow: visible;
+    }
+
+    .tokens {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(74px, 1fr));
+      gap: 8px;
+    }
+
     .token {
       border: 1px solid #dce6df;
       border-radius: 12px;
@@ -242,24 +372,38 @@
       padding: 9px 8px;
       text-align: center;
     }
+
     .token strong { display: block; font-size: 18px; }
     .token span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+
     .comparison {
+      margin-top: 18px;
       border: 1px solid #e6d8c7;
       border-radius: 14px;
       overflow: hidden;
-      margin-top: 18px;
       font-size: 14px;
     }
+
     .row {
       display: grid;
       grid-template-columns: 128px minmax(0, 1fr);
       border-top: 1px solid #ece4d8;
     }
+
     .row:first-child { border-top: 0; }
-    .row b, .row span { padding: 13px 14px; line-height: 1.65; }
-    .row b { background: #fffaf0; color: #63440a; }
+    .row b,
+    .row span {
+      padding: 13px 14px;
+      line-height: 1.68;
+    }
+
+    .row b {
+      background: #fffaf0;
+      color: #65470d;
+    }
+
     .row span { color: #3f4b5b; }
+
     .teaching {
       margin-top: 18px;
       border: 1px solid #efd8d3;
@@ -267,47 +411,109 @@
       background: linear-gradient(135deg, #fff7f5, #fffdf9);
       padding: 18px;
     }
-    .teaching h4 { margin: 0; color: var(--red); font-size: 20px; }
-    .teaching ul { margin: 12px 0 0; padding-left: 20px; color: #5b4b45; line-height: 1.9; }
-    .more {
-      margin-top: 24px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.96);
-      padding: 20px;
-      box-shadow: var(--shadow);
+
+    .teaching h4 {
+      margin: 0;
+      color: var(--red);
+      font-size: 20px;
+      font-family: "Songti SC", "SimSun", serif;
     }
-    .more h3 { font-size: 22px; }
+
+    .teaching ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: #5b4b45;
+      line-height: 1.92;
+    }
+
+    .sections {
+      margin-top: 24px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .section {
+      padding: 28px;
+      scroll-margin-top: 112px;
+    }
+
+    .section-grid {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .mini {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      padding: 16px;
+      min-height: 128px;
+    }
+
+    .mini strong {
+      display: block;
+      color: var(--jade);
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    .mini span {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
     .more-grid {
-      margin-top: 14px;
+      margin-top: 18px;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 14px;
     }
+
     .more-card {
       border: 1px solid var(--line);
       border-radius: 14px;
       background:
-        linear-gradient(145deg, rgba(255,255,255,.92), rgba(255,255,255,.98)),
-        radial-gradient(circle at 100% 100%, rgba(13, 107, 99, .08), transparent 48%);
+        linear-gradient(145deg, rgba(255,255,255,.93), rgba(255,255,255,.98)),
+        radial-gradient(circle at 100% 100%, rgba(11, 111, 104, .08), transparent 48%);
       padding: 16px;
       text-align: left;
     }
-    .more-card strong { display: block; color: var(--jade); font-size: 17px; }
-    .more-card span { display: block; margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.55; }
-    @media (max-width: 1040px) {
-      .intro, .grid { grid-template-columns: 1fr; }
+
+    .more-card strong {
+      display: block;
+      color: var(--jade);
+      font-size: 17px;
+    }
+
+    .more-card span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 1120px) {
+      .topbar-inner { align-items: flex-start; flex-direction: column; }
+      .nav { flex-wrap: wrap; gap: 18px 26px; }
+      .hero, .overview { grid-template-columns: 1fr; }
+      .hero-copy { padding-left: 24px; }
+      .section-grid { grid-template-columns: repeat(2, 1fr); }
       .more-grid { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (max-width: 680px) {
-      .topbar-inner { align-items: flex-start; }
-      .pills { display: none; }
+
+    @media (max-width: 700px) {
       .wrap, .topbar-inner { padding-left: 16px; padding-right: 16px; }
-      .input-row { grid-template-columns: 1fr; }
-      .more-grid { grid-template-columns: 1fr; }
+      .hero { margin-left: -16px; margin-right: -16px; padding: 28px 16px; }
+      .input-row, .section-grid, .more-grid { grid-template-columns: 1fr; }
       .row { grid-template-columns: 1fr; }
       .row b { padding-bottom: 4px; }
       .row span { padding-top: 4px; }
+      h1 { font-size: 30px; }
+      .nav { display: none; }
     }
   </style>
 </head>
@@ -315,77 +521,99 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
-        <div class="seal">配</div>
+        <div class="seal">析</div>
         <div>
-          <h1>汉语配价语法交互导览</h1>
-          <p class="subtitle">探索汉语句子结构中的配价关系与多维语法视角</p>
+          <h1>汉语多维语法分析导览</h1>
+          <p class="subtitle">从句法结构、谓词角色、汉语构式到教学转化</p>
         </div>
       </div>
-      <div class="pills">
-        <span class="pill">首页</span>
-        <span class="pill">配价语法</span>
-        <span class="pill">多维比较</span>
-        <span class="pill">教学资源</span>
-        <span class="pill">案例库</span>
-        <span class="pill">关于我们</span>
-      </div>
+      <nav class="nav" aria-label="页面导航">
+        <a href="#home">首页</a>
+        <a href="#syntax">句法结构</a>
+        <a href="#roles">谓词角色</a>
+        <a href="#constructions">汉语构式</a>
+        <a href="#information">信息组织</a>
+        <a href="#teaching">教学转化</a>
+      </nav>
     </div>
   </header>
 
-  <main class="wrap">
-    <section class="intro">
-      <div class="intro-note">
-        <div class="eyebrow">Input Sentence</div>
-        <h2>输入句子</h2>
-        <p>输入或选择一个汉语句子，页面会先找出核心动词，再说明这个动词需要哪些角色。读者不必先懂术语，也能顺着例句看懂分析。</p>
+  <main class="wrap" id="home">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="hero-kicker">输入句子</div>
+        <p>输入或选择一个汉语句子，页面会从多个语法层面展开分析：先看结构，再看角色，再回到汉语表达和课堂解释。</p>
       </div>
       <div class="workbench">
         <div class="input-row">
           <textarea id="sentenceInput" maxlength="200">小明把书放在桌子上。</textarea>
-        <button class="btn primary" id="analyzeBtn">分析句子</button>
-        <button class="btn secondary" id="randomBtn">随机示例</button>
+          <button class="btn primary" id="analyzeBtn">分析句子</button>
+          <button class="btn secondary" id="randomBtn">随机示例</button>
         </div>
         <div class="examples" id="examples"><span class="examples-label">示例句子：</span></div>
-        <p class="status" id="status">请选择一个例句，或输入自己的句子，开启配价语法分析之旅。</p>
+        <p class="status" id="status">请选择一个例句，或输入自己的句子，开启多维语法分析。</p>
       </div>
     </section>
 
-    <section class="grid">
-      <article class="card">
-        <h3><span class="icon">一</span>配价框架解析</h3>
-        <p class="card-copy">配价语法关注动词本身：一个动词通常会预设若干角色，这些角色共同构成句子的基本骨架。</p>
+    <section class="overview" aria-label="语法分析概览">
+      <article class="card" id="roles">
+        <h3><span class="icon">一</span>谓词角色分析</h3>
+        <p class="copy">这一层把配价语法、格语法和语义角色放在一起：动词需要几个角色？这些角色分别是什么？</p>
         <div class="frame-box">
           <div class="verb"><span id="verbText">放</span><span class="formula" id="valencyFrame">施事 + 受事 + 处所</span></div>
-          <div class="roles" id="roles"></div>
+          <div class="roles" id="roleList"></div>
         </div>
-        <p class="card-copy" id="valencyExplanation"></p>
+        <p class="copy" id="valencyExplanation"></p>
       </article>
 
-      <article class="card">
-        <h3><span class="icon">二</span>句法依存结构</h3>
-        <p class="card-copy">依存图把词与词之间的关系画出来：核心动词位于中心，其他成分围绕它承担不同功能。</p>
+      <article class="card" id="syntax">
+        <h3><span class="icon">二</span>句法结构分析</h3>
+        <p class="copy">这一层包含层次分析和依存分析：句子怎样分块？词与词之间怎样连接？</p>
         <div class="arc-board">
           <svg class="arc-svg" id="arcSvg" viewBox="0 0 720 136" preserveAspectRatio="none"></svg>
           <div class="tokens" id="tokens"></div>
         </div>
-        <p class="card-copy" id="dependencyInsight"></p>
+        <p class="copy" id="dependencyInsight"></p>
       </article>
 
       <article class="card">
-        <h3><span class="icon">三</span>多维语法视角比较</h3>
-        <p class="card-copy">同一个句子可以从配价、格语法、话题结构和语义角色等角度观察。不同视角并不互相排斥，而是解释不同层面。</p>
+        <h3><span class="icon">三</span>多维视角比较</h3>
+        <p class="copy">同一句子可以从句法、语义、构式和信息组织等角度观察。不同视角解释的是不同层面。</p>
         <div class="comparison" id="comparison"></div>
-        <div class="teaching">
+        <div class="teaching" id="teaching">
           <h4>教学提示</h4>
           <ul id="teachingList"></ul>
         </div>
       </article>
     </section>
 
-    <section class="more">
-      <h3>更多示例探索</h3>
-      <div class="more-grid" id="moreExamples"></div>
-    </section>
+    <div class="sections">
+      <section class="section" id="constructions">
+        <h2><span class="icon">构</span>汉语构式层</h2>
+        <p class="copy">这一层回答：这个句子属于哪类汉语结构？它能解释“把”字句、被字句、存现句、处所句、连动句、兼语句、述补结构等典型汉语现象。</p>
+        <div class="section-grid">
+          <div class="mini"><strong>把字句</strong><span>突出受事和处置结果，例如“把书放在桌子上”。</span></div>
+          <div class="mini"><strong>存现句</strong><span>从处所出发展示存在状态，例如“台上坐着主席团”。</span></div>
+          <div class="mini"><strong>述补结构</strong><span>通过补语说明动作结果、趋向或可能性。</span></div>
+        </div>
+      </section>
+
+      <section class="section" id="information">
+        <h2><span class="icon">信</span>信息组织层</h2>
+        <p class="copy">这一层回答：说话人先让读者注意什么？重点放在哪里？它解释话题-述题、焦点、旧信息/新信息、语序突显和受事前置等问题。</p>
+        <div class="section-grid">
+          <div class="mini"><strong>话题-述题</strong><span>如“台上 / 坐着主席团”，先给观察场域，再说明状态。</span></div>
+          <div class="mini"><strong>焦点</strong><span>通过语序、重音或结构安排突出最重要的信息。</span></div>
+          <div class="mini"><strong>语序突显</strong><span>如受事前置，让学习者看到汉语信息组织的灵活性。</span></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2><span class="icon">例</span>更多示例探索</h2>
+        <p class="copy">换一个动词或构式，就能看到分析层次如何变化。</p>
+        <div class="more-grid" id="moreExamples"></div>
+      </section>
+    </div>
   </main>
 
   <script>
@@ -421,7 +649,8 @@
           verb,
           valency: { type: "零价动词", frame: "存现句（无施事）", explanation: "自然现象无需施事或受事，句子核心是事件本身。", slots: [] },
           caseGrammar: { pattern: "事件格", insight: "格语法提醒我们：并非每个句子都必须寻找动作发出者。" },
-          dependency: { root: verb, insight: "依存图极简，根节点就是自然事件谓词。", relations: [{ from: "。", to: verb, rel: "标点", color: "#697684" }] },
+          dependency: { root: verb, insight: "依存图极简，根节点就是自然事件谓词。", relations: [{ from: "。", to: verb, rel: "标点", color: "#687383" }] },
+          construction: { type: "无主自然事件句", insight: "汉语可以直接陈述自然事件，不需要形式主语。" },
           topicComment: { topic: "天气/自然环境", comment: verb, insight: "汉语可直接把环境状态推到前景，不必补出形式主语。" },
           theta: { grid: `${verb} <Event>`, principle: "零价结构没有普通论元，只有事件被陈述。" },
           pedagogy: ["讲解汉语无主句。", "与英语 it rains 的形式主语形成对比。", "提示学生：配价不是找主语，而是看动词需要什么角色。"]
@@ -437,7 +666,8 @@
           verb: "坐着",
           valency: { type: "二价存在动词", frame: "处所 + 存在主体", explanation: "动词把处所和存在主体连接起来，核心不是谁主动坐，而是某处呈现某种状态。", slots: [role("处所", "Location", "台上", "空间话题先行"), role("存在主体", "Theme", "主席团", "被呈现的实体")] },
           caseGrammar: { pattern: "处所格 + 主题格", insight: "格语法比传统主谓法更容易解释处所前置句。" },
-          dependency: { root: "坐着", insight: "依存分析把“坐着”作为根节点，同时保留“台上”的处所依存关系。", relations: [{ from: "台上", to: "坐着", rel: "处所", color: "#b8872b" }, { from: "主席团", to: "坐着", rel: "存在主体", color: "#0d6b63" }] },
+          dependency: { root: "坐着", insight: "依存分析把“坐着”作为根节点，同时保留“台上”的处所依存关系。", relations: [{ from: "台上", to: "坐着", rel: "处所", color: "#b1842f" }, { from: "主席团", to: "坐着", rel: "存在主体", color: "#0b6f68" }] },
+          construction: { type: "处所存现句", insight: "句子从处所出发，说明该处存在什么状态或实体。" },
           topicComment: { topic: "台上", comment: "坐着主席团", insight: "先给观察场域，再说明场域中的状态，比硬判“台上”为主语更贴近汉语。" },
           theta: { grid: "坐着 <Location, Theme>", principle: "每个论元获得一个清晰的语义角色，不必强行套入施事/受事。" },
           pedagogy: ["讲“处所作话题”。", "展示汉语存在句与英语主语句的差异。", "先问动词“需要哪些位置”，再判断句法成分。"]
@@ -454,7 +684,8 @@
           verb,
           valency: { type: "二价心理动词", frame: "经验者 + 刺激物", explanation: "心理动词不是典型施事动作，而是经验者被某个对象触发心理状态。", slots: [role("经验者", "Experiencer", "李四/他", "经历心理状态的人"), role("刺激物", "Stimulus", "狗/对象", "引发心理状态的对象")] },
           caseGrammar: { pattern: "经验格 + 刺激格", insight: "格语法能避免把所有句首人称都粗暴解释为主动施事。" },
-          dependency: { root: verb, insight: "依存语法保留形式关系，语义角色进一步解释关系性质。", relations: [{ from: "李四/他", to: verb, rel: "经验者", color: "#486f92" }, { from: "狗/对象", to: verb, rel: "刺激物", color: "#b14b3d" }] },
+          dependency: { root: verb, insight: "依存语法保留形式关系，语义角色进一步解释关系性质。", relations: [{ from: "李四/他", to: verb, rel: "经验者", color: "#496f94" }, { from: "狗/对象", to: verb, rel: "刺激物", color: "#b84c3d" }] },
+          construction: { type: "心理状态句", insight: "句子表达经验者的心理反应，而非一个外显动作。" },
           topicComment: { topic: "李四/他", comment: `${verb}狗/对象`, insight: "句首实体作为话题，后文说明其心理状态。" },
           theta: { grid: `${verb} <Experiencer, Stimulus>`, principle: "心理动词显示：语义角色不等同于传统主语宾语。" },
           pedagogy: ["讲心理动词。", "提示“主语”不自动等同于“施事”。", "适合与“我喜欢茶/茶我喜欢”做话题结构对比。"]
@@ -470,9 +701,10 @@
           verb: "送给/告诉",
           valency: { type: "三价动词", frame: "施事 + 受领者 + 客体", explanation: "转移类动词需要动作发出者、接受者和被转移对象三类角色。", slots: [role("施事", "Agent", "妈妈/说话人", "发出转移动作"), role("受领者", "Recipient", "孩子/对方", "接受对象"), role("客体", "Theme", "书/信息", "被转移的内容")] },
           caseGrammar: { pattern: "施事格 + 受领格 + 主题格", insight: "格语法可以把双宾结构、介词“给”的功能讲清楚。" },
-          dependency: { root: "送给/告诉", insight: "依存关系区分直接宾语和间接宾语，利于做机器可读句法图。", relations: [{ from: "妈妈/说话人", to: "送给/告诉", rel: "施事", color: "#0d6b63" }, { from: "孩子/对方", to: "送给/告诉", rel: "受领者", color: "#b8872b" }, { from: "书/信息", to: "送给/告诉", rel: "客体", color: "#486f92" }] },
+          dependency: { root: "送给/告诉", insight: "依存关系区分直接宾语和间接宾语，利于做机器可读句法图。", relations: [{ from: "妈妈/说话人", to: "送给/告诉", rel: "施事", color: "#0b6f68" }, { from: "孩子/对方", to: "送给/告诉", rel: "受领者", color: "#b1842f" }, { from: "书/信息", to: "送给/告诉", rel: "客体", color: "#496f94" }] },
+          construction: { type: "转移类双宾/给字结构", insight: "句子强调物品、信息或行为从施事转向受领者。" },
           topicComment: { topic: "妈妈/说话人", comment: "把某物转移给某人", insight: "话题-述题视角可展示事件叙述的展开顺序。" },
-          theta: { grid: "送给/告诉 <Agent, Recipient, Theme>", principle: "三价动词最适合演示配价语法与 θ-准则的关系。" },
+          theta: { grid: "送给/告诉 <Agent, Recipient, Theme>", principle: "三价动词最适合演示谓词-论元结构。" },
           pedagogy: ["讲双宾语和“给”字结构。", "让学生画出“谁给谁什么”。", "适合扩展到教材中的交际功能训练。"]
         };
       }
@@ -490,7 +722,8 @@
         verb,
         valency: { type: "三价动作动词", frame: `施事 + 受事 + ${thirdLabel}`, explanation: "核心动词不仅需要施事和受事，还常常需要目标处所、路径或工具来补足事件结构。", slots: [role("施事", "Agent", agent, "动作的发出者，通常有意识地推动事件发生"), role("受事", "Patient", patient, "动作所作用的对象，通常直接受到影响"), role(thirdLabel, thirdLabel === "工具" ? "Instrument" : "Location", third, "补足事件完成条件的成分")] },
         caseGrammar: { pattern: `施事格 + 受事格 + ${thirdLabel}格`, insight: "格语法能把“把”字句中的受事提前解释为语义突显，而不是简单倒装。" },
-        dependency: { root: verb, insight: "依存语法以动词为根，把标记、受事、处所/工具都挂接到事件核心上。", relations: [{ from: agent, to: verb, rel: "施事", color: "#0d6b63" }, { from: patient, to: verb, rel: "受事", color: "#b14b3d" }, { from: third, to: verb, rel: thirdLabel, color: "#486f92" }] },
+        dependency: { root: verb, insight: "依存语法以动词为根，把标记、受事、处所/工具都挂接到事件核心上。", relations: [{ from: agent, to: verb, rel: "施事", color: "#0b6f68" }, { from: patient, to: verb, rel: "受事", color: "#b84c3d" }, { from: third, to: verb, rel: thirdLabel, color: "#496f94" }] },
+        construction: { type: sentence.includes("把") ? "把字句" : "动作叙述句", insight: sentence.includes("把") ? "“把”字句突出受事和处置结果。" : "句子围绕动作事件组织参与角色。" },
         topicComment: { topic: agent, comment: sentence.replace(/[。！？]/g, "").replace(agent, ""), insight: "汉语句子可从人物、受事或处所展开，话题位置体现信息组织策略。" },
         theta: { grid: `${verb} <Agent, Patient, ${thirdLabel === "工具" ? "Instrument" : "Location"}>`, principle: "一个论元只承担一个核心角色，一个核心角色只分配给一个论元。" },
         pedagogy: ["讲“把”字句、处置义和事件完成。", "先问动词“需要几个角色”，再解释语序。", "把形式句法与语义角色分层讲解。"]
@@ -514,11 +747,10 @@
           valency: { ...base.valency, ...(data.valency || {}) },
           caseGrammar: { ...base.caseGrammar, ...(data.caseGrammar || {}) },
           dependency: { ...base.dependency, ...(data.dependency || {}) },
+          construction: { ...base.construction, ...(data.construction || {}) },
           topicComment: { ...base.topicComment, ...(data.topicComment || {}) },
           theta: { ...base.theta, ...(data.theta || {}) },
-          tokens: Array.isArray(data.tokens) && data.tokens.every(item => item && typeof item === "object" && "word" in item)
-            ? data.tokens
-            : base.tokens,
+          tokens: Array.isArray(data.tokens) && data.tokens.every(item => item && typeof item === "object" && "word" in item) ? data.tokens : base.tokens,
           pedagogy: Array.isArray(data.pedagogy) ? data.pedagogy : base.pedagogy,
           confidence: typeof data.confidence === "number" ? data.confidence : base.confidence,
           source: "enhanced"
@@ -542,7 +774,7 @@
     }
 
     function renderRoles() {
-      const box = document.getElementById("roles");
+      const box = document.getElementById("roleList");
       box.innerHTML = "";
       if (!result.valency.slots || result.valency.slots.length === 0) {
         box.innerHTML = `<div class="role"><strong>无强制论元</strong><br><em>例：</em>${result.verb} 这样的自然事件可直接成句。</div>`;
@@ -559,7 +791,7 @@
     function renderArcs() {
       const svg = document.getElementById("arcSvg");
       const words = result.tokens.map(item => item.word);
-      svg.innerHTML = `<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#17212f"></path></marker></defs>`;
+      svg.innerHTML = `<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#17212d"></path></marker></defs>`;
       result.dependency.relations.slice(0, 5).forEach((rel, index) => {
         const from = Math.max(0, words.indexOf(rel.from));
         const to = Math.max(0, words.indexOf(rel.to));
@@ -570,7 +802,7 @@
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", `M ${x1} ${y} C ${x1} ${y - h}, ${x2} ${y - h}, ${x2} ${y}`);
         path.setAttribute("fill", "none");
-        path.setAttribute("stroke", rel.color || "#0d6b63");
+        path.setAttribute("stroke", rel.color || "#0b6f68");
         path.setAttribute("stroke-width", "2");
         path.setAttribute("marker-end", "url(#arrow)");
         svg.appendChild(path);
@@ -578,7 +810,7 @@
         text.setAttribute("x", (x1 + x2) / 2);
         text.setAttribute("y", Math.max(18, y - h - 4));
         text.setAttribute("text-anchor", "middle");
-        text.setAttribute("fill", rel.color || "#0d6b63");
+        text.setAttribute("fill", rel.color || "#0b6f68");
         text.setAttribute("font-size", "12");
         text.setAttribute("font-weight", "760");
         text.textContent = rel.rel;
@@ -599,9 +831,10 @@
 
     function renderComparison() {
       const rows = [
-        ["配价语法", result.valency.type + "： " + result.valency.frame],
-        ["格语法", result.caseGrammar.pattern + "。 " + result.caseGrammar.insight],
-        ["话题-述题", result.topicComment.topic + " / " + result.topicComment.comment + "。 " + result.topicComment.insight],
+        ["句法结构", result.dependency.insight],
+        ["谓词角色", result.valency.type + "： " + result.valency.frame + "。 " + result.caseGrammar.insight],
+        ["汉语构式", result.construction.type + "。 " + result.construction.insight],
+        ["信息组织", result.topicComment.topic + " / " + result.topicComment.comment + "。 " + result.topicComment.insight],
         ["语义角色", result.theta.grid + "。 " + result.theta.principle]
       ];
       const box = document.getElementById("comparison");
@@ -631,7 +864,7 @@
         const preview = localAnalyze(item);
         const btn = document.createElement("button");
         btn.className = "more-card";
-        btn.innerHTML = `<strong>${item}</strong><span>配价模式：${preview.valency.frame}</span>`;
+        btn.innerHTML = `<strong>${item}</strong><span>${preview.construction.type} · ${preview.valency.frame}</span>`;
         btn.addEventListener("click", () => setSentence(item, true));
         box.appendChild(btn);
       });
@@ -642,10 +875,10 @@
       const status = document.getElementById("status");
       const button = document.getElementById("analyzeBtn");
       button.textContent = "分析中...";
-      status.textContent = "正在生成语法分析...";
+      status.textContent = "正在生成多维语法分析...";
       result = await enhancedAnalyze(input);
       render();
-      status.textContent = "已生成分析。可以先读配价框架，再对照其他语法视角。";
+      status.textContent = "已生成分析。可以从句法结构、谓词角色、汉语构式和信息组织几个层面阅读。";
       button.textContent = "分析句子";
     }
 
@@ -653,7 +886,7 @@
       document.getElementById("sentenceInput").value = sentence;
       result = localAnalyze(sentence);
       render();
-      document.getElementById("status").textContent = autoAnalyze ? "已载入例句。可以先读配价框架。" : "请选择一个例句，或输入自己的句子，查看配价结构如何展开。";
+      document.getElementById("status").textContent = autoAnalyze ? "已载入例句。可以从多个语法层面阅读。" : "请选择一个例句，或输入自己的句子，开启多维语法分析。";
     }
 
     function init() {
