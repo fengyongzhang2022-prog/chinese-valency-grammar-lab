@@ -834,9 +834,9 @@
     <section class="hero" aria-label="句子输入">
       <div class="plum-stage">
         <div>
-          <div class="kicker">Grammar Studio</div>
+          <div class="kicker">学习导览</div>
           <h2>从一个句子进入多维语法分析</h2>
-          <p>输入或选择一个汉语句子。页面会先生成总览，再把分析分别放入不同板块，读者可以按自己的阅读路径进入。</p>
+          <p>输入或选择一个汉语句子。先看一句话的整体特点，再进入不同板块，逐步理解句法、角色、构式和表达重点。</p>
         </div>
         <div class="chapter-mark">配价不是唯一答案，而是谓词角色层的一种入口。</div>
       </div>
@@ -854,7 +854,7 @@
             <strong id="currentSentence">小明把书放在桌子上。</strong>
             <span id="currentSummary">当前句子将从句法结构、谓词角色、汉语构式和信息组织四个方向展开。</span>
           </div>
-          <div class="confidence"><span id="confidenceText">本地</span><small>分析来源</small></div>
+          <div class="confidence"><span id="focusText">核心动词</span><small>观察重点</small></div>
         </div>
       </div>
     </section>
@@ -863,9 +863,9 @@
       <div class="section-head">
         <div>
           <h2>阅读入口</h2>
-          <p>首页只保留分析入口和总体导览。真正的分析内容已经拆到各个板块中，避免所有内容挤在同一屏里。</p>
+          <p>可以按“先看形式结构，再看动词角色，再看汉语句式和表达重点”的顺序学习；也可以直接进入自己感兴趣的板块。</p>
         </div>
-        <span class="section-tag">Overview</span>
+        <span class="section-tag">总览</span>
       </div>
       <div class="home-grid">
         <article class="card feature">
@@ -1024,7 +1024,7 @@
       <div class="section-head">
         <div>
           <h2>信息组织：话题、焦点与语序突显</h2>
-          <p>这一板块解释说话人如何安排信息：先让读者注意什么，重点放在哪里，哪些成分通过语序获得突显。它处理的是表达策略，不等同于句法结构。</p>
+          <p>这一板块解释说话人如何安排信息：先让学习者注意什么，重点放在哪里，哪些成分通过语序获得突显。它处理的是表达策略，不等同于句法结构。</p>
         </div>
         <span class="section-tag">Information Structure</span>
       </div>
@@ -1041,7 +1041,7 @@
         <article class="card">
           <h3><span class="icon">焦</span>焦点与突显</h3>
           <div class="pathway" style="margin-top:18px;">
-            <div class="path-step"><strong>旧信息 / 新信息</strong><span id="infoOldNew">句首通常提供读者容易定位的信息，后续部分推进新信息。</span></div>
+            <div class="path-step"><strong>旧信息 / 新信息</strong><span id="infoOldNew">句首通常提供学习者容易定位的信息，后续部分推进新信息。</span></div>
             <div class="path-step"><strong>语序突显</strong><span id="infoProminence">受事前置、处所前置或话题前置，都可能是信息组织策略。</span></div>
           </div>
         </article>
@@ -1052,7 +1052,7 @@
       <div class="section-head">
         <div>
           <h2>教学转化：从语法理论到课堂解释</h2>
-          <p>这一板块把分析结果转化成读者友好的讲解路径。目标不是堆概念，而是帮助教师知道先讲什么、怎么举例、如何避免误解。</p>
+          <p>这一板块把分析结果转化成课堂讲解路径。目标不是堆概念，而是帮助教师知道先讲什么、怎么举例、如何减少误解。</p>
         </div>
         <span class="section-tag">Pedagogy</span>
       </div>
@@ -1075,7 +1075,7 @@
         <p class="copy">换一个动词或构式，可以看到分析层次如何变化。</p>
         <div class="more-grid" id="moreExamples"></div>
       </article>
-      <p class="footer-note">页面会优先呈现本地可解释分析；如果部署环境配置了模型接口，会在后台增强分析结果。界面不向读者显示工程状态。</p>
+      <p class="footer-note">学习建议：先用一个熟悉的例句读懂各板块，再换一个句子比较差异。这样更容易看出不同语法视角各自解释什么。</p>
     </section>
   </main>
 
@@ -1242,7 +1242,7 @@
     function render() {
       document.getElementById("currentSentence").textContent = result.sentence;
       document.getElementById("currentSummary").textContent = `${result.construction.type}；${result.valency.type}；核心谓词为“${result.verb}”。`;
-      document.getElementById("confidenceText").textContent = result.source === "enhanced" ? "增强" : "本地";
+      document.getElementById("focusText").textContent = result.verb;
       document.getElementById("verbText").textContent = result.verb;
       document.getElementById("valencyFrame").textContent = result.valency.frame;
       document.getElementById("valencyExplanation").textContent = result.valency.explanation;
@@ -1254,7 +1254,7 @@
       document.getElementById("constructionType").textContent = result.construction.type;
       document.getElementById("constructionDetail").textContent = result.construction.insight;
       document.getElementById("constructionInsight").textContent = `当前句子的构式判断为“${result.construction.type}”。构式层关注它在汉语表达系统中的功能，而不是重复句法或角色分析。`;
-      document.getElementById("infoOldNew").textContent = `话题“${result.topicComment.topic}”为读者建立观察起点，述题“${result.topicComment.comment}”推进新信息。`;
+      document.getElementById("infoOldNew").textContent = `话题“${result.topicComment.topic}”为学习者建立观察起点，述题“${result.topicComment.comment}”推进新信息。`;
       document.getElementById("infoProminence").textContent = result.topicComment.insight;
       document.getElementById("valencyHowToRead").textContent = valencyReadingGuide(result);
       document.getElementById("constituencyHowToRead").textContent = syntaxReadingGuide(result);
