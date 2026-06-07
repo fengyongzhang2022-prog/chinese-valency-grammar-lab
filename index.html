@@ -1224,7 +1224,7 @@
       }
     }
 
-    function switchView(view) {
+    function switchView(view, smooth = true) {
       activeView = view;
       document.querySelectorAll(".view").forEach(section => {
         section.classList.toggle("active", section.id === `view-${view}`);
@@ -1235,7 +1235,7 @@
       history.replaceState(null, "", `#${view}`);
       requestAnimationFrame(() => {
         const target = view === "home" ? document.querySelector(".hero") : document.getElementById(`view-${view}`);
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        target.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" });
       });
     }
 
@@ -1447,7 +1447,7 @@
       render();
       const initial = location.hash.replace("#", "");
       if (["home", "syntax", "roles", "constructions", "information", "teaching"].includes(initial)) {
-        switchView(initial);
+        switchView(initial, false);
       }
     }
 
