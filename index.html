@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>汉语配价语法智能实验室</title>
+  <title>汉语配价语法交互导览</title>
   <style>
     :root {
-      --ink: #071522;
-      --ink-2: #0b2133;
-      --paper: #fbf7ef;
-      --paper-2: #f3eadc;
-      --line: #ded2c1;
-      --text: #17212b;
-      --muted: #66717d;
-      --jade: #12685f;
-      --jade-2: #e5f3ee;
-      --cinnabar: #a93d31;
-      --gold: #c69232;
-      --blue: #2a5f91;
-      --shadow: 0 22px 50px rgba(7, 21, 34, .14);
-      --radius: 24px;
+      --ink: #182232;
+      --ink-2: #253243;
+      --paper: #f8faf8;
+      --paper-2: #eef4f1;
+      --line: #dbe4df;
+      --text: #1d2733;
+      --muted: #697684;
+      --jade: #0d6b63;
+      --jade-2: #e8f5f1;
+      --cinnabar: #b54b3e;
+      --gold: #b8872b;
+      --blue: #486f92;
+      --shadow: 0 18px 42px rgba(24, 34, 50, .09);
+      --radius: 18px;
     }
 
     * { box-sizing: border-box; }
@@ -30,9 +30,9 @@
       color: var(--text);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
       background:
-        radial-gradient(circle at 12% 5%, rgba(18, 104, 95, .38), transparent 30%),
-        radial-gradient(circle at 78% 0%, rgba(169, 61, 49, .22), transparent 26%),
-        linear-gradient(180deg, var(--ink) 0 330px, var(--paper) 330px 100%);
+        radial-gradient(circle at 7% 8%, rgba(13, 107, 99, .08), transparent 28%),
+        radial-gradient(circle at 92% 4%, rgba(181, 75, 62, .07), transparent 24%),
+        linear-gradient(180deg, #ffffff 0 160px, var(--paper) 160px 100%);
     }
 
     button, input, textarea { font: inherit; }
@@ -43,8 +43,8 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      border-bottom: 1px solid rgba(255,255,255,.1);
-      background: rgba(7, 21, 34, .92);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, .92);
       backdrop-filter: blur(14px);
     }
 
@@ -62,34 +62,34 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      color: white;
+      color: var(--ink);
     }
 
     .seal {
       width: 48px;
       height: 48px;
-      border: 1px solid rgba(246, 231, 192, .45);
-      border-radius: 18px;
+      border: 1px solid rgba(181, 75, 62, .32);
+      border-radius: 999px;
       display: grid;
       place-items: center;
-      color: #f5e0ab;
-      background: rgba(255,255,255,.06);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
+      color: var(--cinnabar);
+      background: #fff;
+      box-shadow: inset 0 0 0 1px rgba(181, 75, 62, .08);
       font-weight: 800;
     }
 
     h1, h2, h3, p { margin: 0; }
     h1 { font-size: clamp(24px, 3vw, 38px); line-height: 1.1; letter-spacing: .02em; }
-    .subtitle { margin-top: 6px; color: #b9c5cf; font-size: 14px; }
+    .subtitle { margin-top: 6px; color: var(--muted); font-size: 14px; }
 
     .status-pills { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
     .pill {
-      border: 1px solid rgba(255,255,255,.14);
+      border: 1px solid var(--line);
       border-radius: 999px;
       padding: 8px 12px;
-      color: #d8e2e9;
+      color: var(--ink-2);
       font-size: 13px;
-      background: rgba(255,255,255,.04);
+      background: #fff;
     }
 
     .layout {
@@ -105,21 +105,21 @@
     .panel {
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(251,247,239,.96);
+      background: rgba(255, 255, 255, .96);
       box-shadow: var(--shadow);
     }
 
     .side {
       position: sticky;
       top: 96px;
-      border-color: rgba(255,255,255,.1);
-      background: rgba(8, 27, 43, .9);
-      color: white;
+      border-color: var(--line);
+      background: rgba(255, 255, 255, .94);
+      color: var(--text);
       padding: 16px;
     }
 
     .side-title {
-      color: #f2dfb1;
+      color: var(--cinnabar);
       font-size: 12px;
       letter-spacing: .22em;
       text-transform: uppercase;
@@ -128,23 +128,23 @@
 
     .nav-item {
       width: 100%;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.035);
-      color: #cbd5df;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
       border-radius: 18px;
       padding: 14px;
       text-align: left;
       margin-top: 10px;
       transition: .18s ease;
     }
-    .nav-item:hover { border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.07); }
+    .nav-item:hover { border-color: #b9d6cf; background: #f7fbfa; }
     .nav-item.active {
-      color: white;
-      border-color: rgba(135, 215, 190, .38);
-      background: linear-gradient(145deg, rgba(18,104,95,.45), rgba(18,104,95,.18));
+      color: var(--jade);
+      border-color: #a8d2c8;
+      background: linear-gradient(145deg, #edf8f5, #ffffff);
     }
     .nav-title { display: flex; align-items: center; gap: 10px; font-weight: 750; }
-    .nav-desc { margin-top: 5px; font-size: 12px; color: #9cacba; line-height: 1.55; }
+    .nav-desc { margin-top: 5px; font-size: 12px; color: var(--muted); line-height: 1.55; }
 
     .maincol { display: grid; gap: 18px; }
     .workbench, .canvas, .detail, .teaching, .export, .result-stack { padding: 20px; }
@@ -163,7 +163,7 @@
     .btn {
       border: 1px solid var(--line);
       border-radius: 14px;
-      background: white;
+      background: #fff;
       color: #25303b;
       padding: 10px 13px;
       display: inline-flex;
@@ -357,15 +357,9 @@
       line-height: 1.6;
     }
 
-    .api-box {
+    .reading-note {
       margin-top: 14px;
-      border: 1px solid #b9d8c8;
-      background: #eaf6f0;
-      color: #0e5149;
-      border-radius: 16px;
-      padding: 12px 14px;
-      font-size: 13px;
-      line-height: 1.7;
+      display: none;
     }
 
     @media (max-width: 1180px) {
@@ -391,28 +385,28 @@
       <div class="brand">
         <div class="seal">配</div>
         <div>
-          <h1>汉语配价语法智能实验室</h1>
-          <p class="subtitle">以配价语法为中心，联动格语法、依存语法、话题结构与 θ-角色理论</p>
+          <h1>汉语配价语法交互导览</h1>
+          <p class="subtitle">从一个动词出发，看清句子的角色、关系与教学解释</p>
         </div>
       </div>
       <div class="status-pills">
-        <span class="pill">Standalone HTML</span>
-        <span class="pill">DeepSeek Proxy Ready</span>
+        <span class="pill">配价结构</span>
+        <span class="pill">课堂解释</span>
       </div>
     </div>
   </header>
 
   <div class="layout">
     <aside class="panel side">
-      <div class="side-title">Theory View</div>
-      <h2>理论视图</h2>
+      <div class="side-title">Reading Path</div>
+      <h2>阅读路径</h2>
       <button class="nav-item active" data-theory="valency"><div class="nav-title">⟡ 配价语法</div><div class="nav-desc">看动词需要几个强制论元，是整个实验室的中心视角。</div></button>
       <button class="nav-item" data-theory="case"><div class="nav-title">◈ 格语法</div><div class="nav-desc">看名词性成分承担施事、受事、工具、处所等语义格。</div></button>
       <button class="nav-item" data-theory="dependency"><div class="nav-title">⌁ 依存语法</div><div class="nav-desc">把词与词之间的支配关系转化为可计算结构。</div></button>
       <button class="nav-item" data-theory="topic"><div class="nav-title">▣ 话题-述题</div><div class="nav-desc">解释汉语从话题到说明的认知展开顺序。</div></button>
       <button class="nav-item" data-theory="theta"><div class="nav-title">θ θ-角色</div><div class="nav-desc">检查论元角色分配是否清楚、唯一、完整。</div></button>
-      <div class="api-box">
-        <strong>GitHub Pages 提醒：</strong>不要在 HTML 里写 DeepSeek key。静态页面只能调用后端代理 `/api/deepseek-grammar`；没有代理时自动使用本地规则。
+      <div class="reading-note">
+        先看动词需要哪些角色，再看这些角色如何进入句子形式。这个顺序更适合读者理解汉语句法。
       </div>
     </aside>
 
@@ -420,12 +414,11 @@
       <section class="panel workbench">
         <div class="section-head">
           <div>
-            <h2>句子工作台</h2>
-            <p class="hint">输入中文句子，系统会生成配价框架、语义格、依存关系、话题结构和教学说明。</p>
+            <h2>试着输入一句中文</h2>
+            <p class="hint">页面会先找出核心动词，再说明它需要哪些角色，以及这些角色如何组成句子。</p>
           </div>
           <div class="controls">
-            <button class="btn" id="clearBtn">清空</button>
-            <button class="btn on" id="apiToggle">DeepSeek增强</button>
+            <button class="btn" id="clearBtn">重新开始</button>
           </div>
         </div>
         <div class="input-shell">
@@ -436,7 +429,7 @@
           </div>
         </div>
         <div class="examples" id="examples"></div>
-        <div class="notice" id="status">本地规则已就绪；DeepSeek 接口可用时自动增强。</div>
+        <div class="notice" id="status">请选择一个例句，或输入自己的句子，查看配价结构如何展开。</div>
       </section>
 
       <div class="two-col">
@@ -444,7 +437,7 @@
           <div class="section-head">
             <div>
               <h3>配价核心与依存图</h3>
-              <p class="hint">配价语法先确定动词的论元数量，依存语法再给出词项之间的支配关系。</p>
+              <p class="hint">配价语法回答“这个动词需要几个角色”；依存图则显示这些角色与动词的关系。</p>
             </div>
           </div>
           <div class="canvas-grid">
@@ -467,7 +460,7 @@
           <div class="section-head">
             <div>
               <h3 id="detailTitle">配价语法分析</h3>
-              <p class="hint" id="detailHint">当前理论视图的公式、解释和角色分配。</p>
+              <p class="hint" id="detailHint">把抽象语法术语转成可以阅读、讲解和比较的分析。</p>
             </div>
           </div>
           <div class="formula" id="detailFormula"></div>
@@ -490,7 +483,7 @@
           <div class="section-head">
             <div>
               <h3>结构化导出</h3>
-              <p class="hint">可复制进论文图表、课件或后续 API 流程。</p>
+              <p class="hint">可复制进论文图表、课件或课堂材料。</p>
             </div>
           </div>
           <pre id="jsonPreview"></pre>
@@ -506,7 +499,7 @@
       <div class="section-head">
         <div>
           <h3>多理论结果对比</h3>
-          <p class="hint">以配价语法为主轴，其他理论提供解释层。</p>
+          <p class="hint">以配价语法为主轴，其他理论提供补充视角。</p>
         </div>
       </div>
       <div id="resultCards"></div>
@@ -514,7 +507,6 @@
   </div>
 
   <script>
-    const endpoint = "/api/deepseek-grammar";
     const examples = [
       "小明把书放在桌子上。",
       "台上坐着主席团。",
@@ -525,7 +517,6 @@
     ];
 
     const state = {
-      useApi: true,
       theory: "valency",
       result: null
     };
@@ -636,29 +627,6 @@
         topicComment: { topic: agent, comment: sentence.replace(/[。！？]/g, "").replace(agent, ""), insight: "汉语句子可从人物、受事或处所展开，话题位置体现信息组织策略。" },
         theta: { grid: `${verb} <Agent, Patient, ${sentence.includes("钥匙") ? "Instrument" : "Location"}>`, principle: "一个论元只承担一个核心角色，一个核心角色只分配给一个论元。", roles: [role("施事", "Agent", agent, "动作发出者"), role("受事", "Patient", patient, "受动作影响", "rose"), role(sentence.includes("钥匙") ? "工具" : "处所", sentence.includes("钥匙") ? "Instrument" : "Location", third, "事件完成条件", "gold")] },
         pedagogy: ["讲“把”字句、处置义和事件完成。", "先问动词“需要几个角色”，再解释语序。", "把形式句法与语义角色分层讲解。"]
-      };
-    }
-
-    async function analyzeWithDeepSeek(sentence) {
-      const base = localAnalyze(sentence);
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sentence, schema: "valency, case grammar, dependency grammar, topic-comment, theta roles" })
-      });
-      if (!response.ok) throw new Error("DeepSeek proxy unavailable");
-      const data = await response.json();
-      return {
-        ...base,
-        ...data,
-        valency: { ...base.valency, ...(data.valency || {}) },
-        caseGrammar: { ...base.caseGrammar, ...(data.caseGrammar || {}) },
-        dependency: { ...base.dependency, ...(data.dependency || {}) },
-        topicComment: { ...base.topicComment, ...(data.topicComment || {}) },
-        theta: { ...base.theta, ...(data.theta || {}) },
-        tokens: data.tokens || base.tokens,
-        pedagogy: data.pedagogy || base.pedagogy,
-        source: "deepseek"
       };
     }
 
@@ -793,12 +761,12 @@
       const status = document.getElementById("status");
       document.getElementById("analyzeBtn").textContent = "分析中...";
       try {
-        status.textContent = state.useApi ? "正在请求 DeepSeek 服务端代理..." : "正在使用本地规则分析...";
-        state.result = state.useApi ? await analyzeWithDeepSeek(input) : localAnalyze(input);
-        status.textContent = state.result.source === "deepseek" ? "DeepSeek 增强分析完成。" : "本地规则分析完成。";
+        status.textContent = "正在生成语法分析...";
+        state.result = localAnalyze(input);
+        status.textContent = "已生成分析。可以从配价框架开始阅读，再对照其他理论视角。";
       } catch (err) {
         state.result = localAnalyze(input);
-        status.textContent = "DeepSeek 代理未连通，已自动切换为本地规则分析。";
+        status.textContent = "已生成分析。可以从配价框架开始阅读，再对照其他理论视角。";
       } finally {
         document.getElementById("analyzeBtn").textContent = "分析句子";
         render();
@@ -817,7 +785,7 @@
           input.value = item;
           counter.textContent = `${input.value.length}/200`;
           state.result = localAnalyze(item);
-          document.getElementById("status").textContent = "已载入例句并完成本地预分析。";
+          document.getElementById("status").textContent = "已载入例句。可以从配价框架开始阅读。";
           render();
         });
         examplesBox.appendChild(btn);
@@ -827,11 +795,6 @@
       document.getElementById("clearBtn").addEventListener("click", () => {
         input.value = "";
         counter.textContent = "0/200";
-      });
-      document.getElementById("apiToggle").addEventListener("click", (event) => {
-        state.useApi = !state.useApi;
-        event.currentTarget.classList.toggle("on", state.useApi);
-        event.currentTarget.textContent = state.useApi ? "DeepSeek增强" : "本地规则";
       });
       document.getElementById("analyzeBtn").addEventListener("click", analyze);
       document.querySelectorAll(".nav-item").forEach(btn => {
