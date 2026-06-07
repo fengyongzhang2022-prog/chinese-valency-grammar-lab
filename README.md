@@ -11,13 +11,15 @@
 
 不要把 DeepSeek API Key 写进 `index.html`。GitHub Pages 是纯静态托管，浏览器端请求会暴露密钥。
 
-推荐做法：
+GitHub Pages 版本可以免费访问，但只能使用页面内置的基础规则分析。要接入 DeepSeek，请部署到 Vercel 或其他支持服务端函数的平台。
+
+Vercel 做法：
 
 1. 前端继续调用 `/api/deepseek-grammar`。
-2. 用 Vercel、Netlify Functions、Cloudflare Workers 或自己的服务器实现代理。
-3. 在服务端环境变量中设置 `DEEPSEEK_API_KEY`。
+2. `api/deepseek-grammar.js` 在服务端请求 DeepSeek。
+3. 在 Vercel 项目环境变量中设置 `DEEPSEEK_API_KEY`。
 
-没有服务端代理时，页面会自动回退到本地规则分析。
+没有服务端代理或环境变量时，页面会自动回退到基础规则分析。
 
 ## 本地使用
 

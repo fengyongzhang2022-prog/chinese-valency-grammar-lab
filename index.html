@@ -630,6 +630,31 @@
       };
     }
 
+    async function enhancedAnalyze(sentence) {
+      const base = localAnalyze(sentence);
+      const response = await fetch("/api/deepseek-grammar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sentence })
+      });
+      if (!response.ok) return base;
+      const data = await response.json();
+      if (data.raw) return base;
+      return {
+        ...base,
+        ...data,
+        valency: { ...base.valency, ...(data.valency || {}) },
+        caseGrammar: { ...base.caseGrammar, ...(data.caseGrammar || {}) },
+        dependency: { ...base.dependency, ...(data.dependency || {}) },
+        topicComment: { ...base.topicComment, ...(data.topicComment || {}) },
+        theta: { ...base.theta, ...(data.theta || {}) },
+        tokens: data.tokens || base.tokens,
+        pedagogy: data.pedagogy || base.pedagogy,
+        confidence: data.confidence || base.confidence,
+        source: "enhanced"
+      };
+    }
+
     function render() {
       const result = state.result;
       document.getElementById("verbBadge").textContent = result.verb;
@@ -762,7 +787,7 @@
       document.getElementById("analyzeBtn").textContent = "分析中...";
       try {
         status.textContent = "正在生成语法分析...";
-        state.result = localAnalyze(input);
+        state.result = await enhancedAnalyze(input);
         status.textContent = "已生成分析。可以从配价框架开始阅读，再对照其他理论视角。";
       } catch (err) {
         state.result = localAnalyze(input);
