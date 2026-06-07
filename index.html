@@ -1122,7 +1122,10 @@
         button.classList.toggle("active", button.dataset.nav === view);
       });
       history.replaceState(null, "", `#${view}`);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      requestAnimationFrame(() => {
+        const target = view === "home" ? document.querySelector(".hero") : document.getElementById(`view-${view}`);
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
     }
 
     function render() {
