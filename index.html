@@ -6,39 +6,34 @@
   <title>汉语配价语法交互导览</title>
   <style>
     :root {
-      --ink: #182232;
-      --ink-2: #253243;
+      --ink: #17212f;
+      --muted: #657284;
+      --line: #dbe5df;
       --paper: #f8faf8;
-      --paper-2: #eef4f1;
-      --line: #dbe4df;
-      --text: #1d2733;
-      --muted: #697684;
       --jade: #0d6b63;
-      --jade-2: #e8f5f1;
-      --cinnabar: #b54b3e;
+      --jade-soft: #eaf6f2;
+      --red: #b14b3d;
+      --red-soft: #fff1ee;
       --gold: #b8872b;
+      --gold-soft: #fff7e3;
       --blue: #486f92;
-      --shadow: 0 18px 42px rgba(24, 34, 50, .09);
+      --blue-soft: #edf5fb;
+      --shadow: 0 18px 42px rgba(23, 33, 47, .08);
       --radius: 18px;
     }
-
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      min-height: 100vh;
-      color: var(--text);
+      color: var(--ink);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
       background:
-        radial-gradient(circle at 7% 8%, rgba(13, 107, 99, .08), transparent 28%),
-        radial-gradient(circle at 92% 4%, rgba(181, 75, 62, .07), transparent 24%),
-        linear-gradient(180deg, #ffffff 0 160px, var(--paper) 160px 100%);
+        radial-gradient(circle at 5% 12%, rgba(13, 107, 99, .08), transparent 24%),
+        radial-gradient(circle at 92% 3%, rgba(177, 75, 61, .07), transparent 20%),
+        linear-gradient(180deg, #fff 0 150px, var(--paper) 150px 100%);
     }
-
-    button, input, textarea { font: inherit; }
+    button, textarea { font: inherit; }
     button { cursor: pointer; }
-    button:disabled { cursor: not-allowed; opacity: .55; }
-
+    h1, h2, h3, p { margin: 0; }
     .topbar {
       position: sticky;
       top: 0;
@@ -47,339 +42,250 @@
       background: rgba(255, 255, 255, .92);
       backdrop-filter: blur(14px);
     }
-
     .topbar-inner {
-      max-width: 1320px;
+      max-width: 1260px;
       margin: 0 auto;
-      padding: 18px 24px;
+      padding: 20px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 18px;
     }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      color: var(--ink);
-    }
-
+    .brand { display: flex; align-items: center; gap: 16px; }
     .seal {
-      width: 48px;
-      height: 48px;
-      border: 1px solid rgba(181, 75, 62, .32);
+      width: 54px;
+      height: 54px;
+      border: 1px solid rgba(177, 75, 61, .35);
       border-radius: 999px;
       display: grid;
       place-items: center;
-      color: var(--cinnabar);
+      color: var(--red);
       background: #fff;
-      box-shadow: inset 0 0 0 1px rgba(181, 75, 62, .08);
-      font-weight: 800;
+      font-weight: 900;
+      font-size: 20px;
     }
-
-    h1, h2, h3, p { margin: 0; }
-    h1 { font-size: clamp(24px, 3vw, 38px); line-height: 1.1; letter-spacing: .02em; }
-    .subtitle { margin-top: 6px; color: var(--muted); font-size: 14px; }
-
-    .status-pills { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+    h1 { font-size: clamp(28px, 4vw, 56px); line-height: 1.08; letter-spacing: .01em; }
+    .subtitle { margin-top: 8px; color: var(--muted); font-size: clamp(15px, 1.7vw, 20px); }
+    .pills { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
     .pill {
       border: 1px solid var(--line);
       border-radius: 999px;
-      padding: 8px 12px;
-      color: var(--ink-2);
-      font-size: 13px;
       background: #fff;
+      padding: 9px 14px;
+      color: #2c3847;
+      font-size: 14px;
     }
-
-    .layout {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding: 24px;
+    .wrap { max-width: 1260px; margin: 0 auto; padding: 26px 24px 44px; }
+    .intro {
       display: grid;
-      grid-template-columns: 260px minmax(0, 1fr);
-      gap: 18px;
-      align-items: start;
+      grid-template-columns: 300px minmax(0, 1fr);
+      gap: 24px;
+      align-items: stretch;
     }
-
-    .panel {
+    .intro-note {
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(255, 255, 255, .96);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.86), rgba(255,255,255,.96)),
+        radial-gradient(circle at 0% 100%, rgba(13, 107, 99, .12), transparent 42%);
+      padding: 26px;
       box-shadow: var(--shadow);
     }
-
-    .side {
-      position: sticky;
-      top: 96px;
-      border-color: var(--line);
-      background: rgba(255, 255, 255, .94);
-      color: var(--text);
-      padding: 16px;
-    }
-
-    .side-title {
-      color: var(--cinnabar);
-      font-size: 12px;
-      letter-spacing: .22em;
+    .eyebrow {
+      color: var(--red);
+      font-size: 13px;
+      letter-spacing: .28em;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      font-weight: 700;
     }
-
-    .nav-item {
-      width: 100%;
+    .intro-note h2 { margin-top: 14px; font-size: 32px; }
+    .intro-note p { margin-top: 14px; color: var(--muted); line-height: 1.8; }
+    .workbench {
       border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.96);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .input-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: stretch;
+    }
+    textarea {
+      width: 100%;
+      min-height: 72px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
       background: #fff;
-      color: var(--text);
-      border-radius: 18px;
-      padding: 14px;
-      text-align: left;
-      margin-top: 10px;
-      transition: .18s ease;
+      outline: 0;
+      resize: vertical;
+      padding: 18px 20px;
+      color: var(--ink);
+      font-size: clamp(19px, 2.3vw, 26px);
+      font-weight: 650;
+      line-height: 1.45;
     }
-    .nav-item:hover { border-color: #b9d6cf; background: #f7fbfa; }
-    .nav-item.active {
-      color: var(--jade);
-      border-color: #a8d2c8;
-      background: linear-gradient(145deg, #edf8f5, #ffffff);
-    }
-    .nav-title { display: flex; align-items: center; gap: 10px; font-weight: 750; }
-    .nav-desc { margin-top: 5px; font-size: 12px; color: var(--muted); line-height: 1.55; }
-
-    .maincol { display: grid; gap: 18px; }
-    .workbench, .canvas, .detail, .teaching, .export, .result-stack { padding: 20px; }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 14px;
-      margin-bottom: 16px;
-    }
-    .section-head h2, .section-head h3 { font-size: 20px; color: #111b24; }
-    .hint { margin-top: 5px; color: var(--muted); font-size: 14px; line-height: 1.6; }
-
-    .controls { display: flex; flex-wrap: wrap; gap: 8px; }
     .btn {
       border: 1px solid var(--line);
       border-radius: 14px;
       background: #fff;
-      color: #25303b;
-      padding: 10px 13px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      color: #293747;
+      padding: 12px 18px;
+      font-weight: 760;
       transition: .18s ease;
-      font-weight: 650;
-      font-size: 14px;
     }
-    .btn:hover { border-color: #b6a892; transform: translateY(-1px); }
+    .btn:hover { transform: translateY(-1px); border-color: #a9cfc6; }
     .btn.primary {
       border-color: transparent;
       background: var(--jade);
-      color: white;
-      box-shadow: 0 14px 28px rgba(18, 104, 95, .22);
+      color: #fff;
+      min-width: 128px;
+      box-shadow: 0 14px 28px rgba(13, 107, 99, .2);
     }
-    .btn.primary:hover { background: #0e5b52; }
-    .btn.on { border-color: #a9d6c7; background: var(--jade-2); color: #0d5149; }
-
-    .input-shell {
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: white;
-      box-shadow: inset 0 1px 0 rgba(0,0,0,.03);
-      overflow: hidden;
-    }
-    textarea {
-      width: 100%;
-      min-height: 105px;
-      resize: vertical;
-      border: 0;
-      outline: 0;
-      padding: 18px;
-      color: #111b24;
-      background: transparent;
-      font-size: clamp(21px, 2.5vw, 30px);
-      line-height: 1.45;
-      font-weight: 720;
-    }
-    .input-foot {
-      border-top: 1px solid #eee4d6;
-      padding: 12px;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: center;
-    }
-    .counter { color: var(--muted); font-size: 12px; }
-
-    .examples { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .examples { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .examples-label { color: var(--ink); font-weight: 760; }
     .example {
       border: 1px solid var(--line);
-      background: white;
-      color: #37424f;
       border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 13px;
+      background: #fff;
+      padding: 9px 13px;
+      color: #3b4654;
+      font-size: 14px;
     }
-    .example:hover { border-color: #9fcdbf; background: #edf8f4; }
-
-    .notice {
-      margin-top: 14px;
-      border: 1px solid #e4d8c8;
-      background: #f7efe4;
-      border-radius: 16px;
-      padding: 12px 14px;
-      color: #635847;
-      font-size: 13px;
-      line-height: 1.6;
+    .example:hover { background: var(--jade-soft); border-color: #a9d2c8; color: var(--jade); }
+    .status { margin-top: 16px; color: var(--muted); line-height: 1.7; }
+    .grid {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.15fr;
+      gap: 18px;
+      align-items: start;
     }
-
-    .canvas-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .mini-card {
-      border: 1px solid #e5d9c9;
-      background: #fffdf9;
-      border-radius: 18px;
-      padding: 16px;
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.96);
+      padding: 22px;
+      box-shadow: var(--shadow);
     }
-    .label { color: var(--muted); font-size: 13px; font-weight: 700; }
-    .verb-badge {
-      margin-top: 10px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid #e8b7ad;
-      border-radius: 16px;
-      background: #fff0ed;
-      color: #8d2f25;
-      padding: 12px 14px;
-      font-size: 22px;
-      font-weight: 850;
+    .card h3 { display: flex; align-items: center; gap: 10px; font-size: 23px; }
+    .icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: var(--jade);
+      font-size: 18px;
     }
-    .formula {
-      margin-top: 10px;
+    .card-copy { margin-top: 14px; color: var(--muted); line-height: 1.8; }
+    .frame-box {
+      margin-top: 18px;
+      border: 1px solid var(--line);
       border-radius: 14px;
-      background: #0c1b28;
-      color: #bce9d9;
-      padding: 14px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-weight: 750;
-      overflow-x: auto;
-    }
-
-    .dependency-box {
-      margin-top: 14px;
-      border: 1px solid #e4d8c8;
-      background: #fffdf8;
-      border-radius: 18px;
+      background: #fbfdfb;
       padding: 16px;
-      overflow: hidden;
     }
-    .arc-stage { height: 112px; position: relative; }
-    .arc-stage svg { width: 100%; height: 112px; overflow: visible; }
-    .tokens { display: grid; grid-template-columns: repeat(auto-fit, minmax(82px, 1fr)); gap: 8px; }
+    .verb {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-radius: 12px;
+      background: var(--jade-soft);
+      color: var(--jade);
+      padding: 13px 14px;
+      font-size: 22px;
+      font-weight: 900;
+    }
+    .formula { color: var(--red); font-weight: 850; font-size: 16px; }
+    .roles { margin-top: 16px; display: grid; gap: 12px; }
+    .role {
+      border-top: 1px solid #e8eee9;
+      padding-top: 12px;
+      color: #344252;
+      line-height: 1.7;
+    }
+    .role strong { color: var(--ink); }
+    .role em { color: var(--jade); font-style: normal; font-weight: 760; }
+    .arc-board { margin-top: 18px; overflow: hidden; }
+    .arc-svg { width: 100%; height: 136px; overflow: visible; }
+    .tokens { display: grid; grid-template-columns: repeat(auto-fit, minmax(74px, 1fr)); gap: 8px; }
     .token {
-      border: 1px solid #d9d0c3;
-      border-radius: 13px;
+      border: 1px solid #dce6df;
+      border-radius: 12px;
+      background: #fbfdfb;
       padding: 9px 8px;
       text-align: center;
-      background: #f8f4ed;
     }
-    .token strong { display: block; font-size: 16px; }
-    .token span { display: block; margin-top: 3px; color: #6a7480; font-size: 12px; }
-    .token.nr { background: #eaf6f0; border-color: #b9d8c8; }
-    .token.nn { background: #edf4fb; border-color: #c1d5e9; }
-    .token.vv { background: #fff0ed; border-color: #e8b7ad; }
-    .token.p { background: #fff6df; border-color: #e7cf90; }
-    .token.f { background: #f0edfb; border-color: #cfc6eb; }
-
-    .two-col { display: grid; grid-template-columns: 1.05fr .95fr; gap: 18px; }
-    .role-list { display: grid; gap: 10px; margin-top: 14px; }
-    .role {
-      border: 1px solid #cfe0d9;
-      background: #edf8f4;
-      color: #0e5149;
-      border-radius: 16px;
-      padding: 13px;
+    .token strong { display: block; font-size: 18px; }
+    .token span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+    .comparison {
+      border: 1px solid #e6d8c7;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-top: 18px;
     }
-    .role.rose { border-color: #e7c0b9; background: #fff0ed; color: #8a3229; }
-    .role.gold { border-color: #e5cd91; background: #fff6df; color: #744f0b; }
-    .role.blue { border-color: #bed3e6; background: #edf4fb; color: #254f78; }
-    .role.purple { border-color: #cbc1ea; background: #f1edfb; color: #4e3d85; }
-    .role-top { display: flex; justify-content: space-between; gap: 10px; font-weight: 800; }
-    .role small { display: inline-block; border-radius: 999px; background: rgba(255,255,255,.7); padding: 3px 8px; }
-    .role-note { margin-top: 6px; font-size: 13px; line-height: 1.6; opacity: .86; }
-
-    .rightcol {
-      grid-column: 2;
-      position: static;
+    .row {
+      display: grid;
+      grid-template-columns: 128px minmax(0, 1fr);
+      border-top: 1px solid #ece4d8;
     }
-    .result-card {
-      border: 1px solid #e2d6c7;
-      border-radius: 18px;
-      background: white;
-      padding: 14px;
-      margin-top: 10px;
+    .row:first-child { border-top: 0; }
+    .row b, .row span { padding: 13px 14px; line-height: 1.65; }
+    .row b { background: #fffaf0; color: #63440a; }
+    .row span { color: #3f4b5b; }
+    .teaching {
+      margin-top: 18px;
+      border: 1px solid #efd8d3;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #fff7f5, #fffdf9);
+      padding: 18px;
     }
-    .result-card:first-of-type { margin-top: 0; }
-    .result-title { display: flex; align-items: center; gap: 9px; font-weight: 850; color: #17212b; }
-    .num {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      display: inline-grid;
-      place-items: center;
-      background: #0f5d52;
-      color: white;
-      font-size: 13px;
+    .teaching h4 { margin: 0; color: var(--red); font-size: 20px; }
+    .teaching ul { margin: 12px 0 0; padding-left: 20px; color: #5b4b45; line-height: 1.9; }
+    .more {
+      margin-top: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.96);
+      padding: 20px;
+      box-shadow: var(--shadow);
     }
-    .result-value { margin-top: 10px; color: #0f5d52; font-weight: 800; line-height: 1.45; }
-    .result-desc { margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.55; }
-
-    .teaching-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    .teach {
-      border: 1px solid #e4d0a0;
-      border-radius: 16px;
-      background: #fff6df;
-      color: #694707;
-      padding: 13px;
-      font-size: 13px;
-      line-height: 1.65;
-    }
-
-    pre {
-      margin: 0;
-      max-height: 190px;
-      overflow: auto;
-      border-radius: 16px;
-      background: #0c1b28;
-      color: #bce9d9;
-      padding: 14px;
-      font-size: 12px;
-      line-height: 1.6;
-    }
-
-    .reading-note {
+    .more h3 { font-size: 22px; }
+    .more-grid {
       margin-top: 14px;
-      display: none;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
     }
-
-    @media (max-width: 1180px) {
-      .layout { grid-template-columns: 1fr; }
-      .side, .rightcol { position: static; }
-      .rightcol { grid-column: auto; }
-      .side { order: 0; }
-      .result-stack { order: 3; }
+    .more-card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.92), rgba(255,255,255,.98)),
+        radial-gradient(circle at 100% 100%, rgba(13, 107, 99, .08), transparent 48%);
+      padding: 16px;
+      text-align: left;
     }
-
-    @media (max-width: 760px) {
-      .topbar-inner, .layout { padding-left: 14px; padding-right: 14px; }
-      .status-pills { display: none; }
-      .section-head, .input-foot { flex-direction: column; align-items: stretch; }
-      .two-col, .canvas-grid, .teaching-list { grid-template-columns: 1fr; }
-      .btn { width: 100%; }
-      .controls { width: 100%; }
+    .more-card strong { display: block; color: var(--jade); font-size: 17px; }
+    .more-card span { display: block; margin-top: 8px; color: var(--muted); font-size: 13px; line-height: 1.55; }
+    @media (max-width: 1040px) {
+      .intro, .grid { grid-template-columns: 1fr; }
+      .more-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .topbar-inner { align-items: flex-start; }
+      .pills { display: none; }
+      .wrap, .topbar-inner { padding-left: 16px; padding-right: 16px; }
+      .input-row { grid-template-columns: 1fr; }
+      .more-grid { grid-template-columns: 1fr; }
+      .row { grid-template-columns: 1fr; }
+      .row b { padding-bottom: 4px; }
+      .row span { padding-top: 4px; }
     }
   </style>
 </head>
@@ -390,125 +296,71 @@
         <div class="seal">配</div>
         <div>
           <h1>汉语配价语法交互导览</h1>
-          <p class="subtitle">从一个动词出发，看清句子的角色、关系与教学解释</p>
+          <p class="subtitle">探索汉语句子结构中的配价关系与多维语法视角</p>
         </div>
       </div>
-      <div class="status-pills">
+      <div class="pills">
         <span class="pill">配价结构</span>
-        <span class="pill">课堂解释</span>
+        <span class="pill">多维比较</span>
+        <span class="pill">教学解释</span>
       </div>
     </div>
   </header>
 
-  <div class="layout">
-    <aside class="panel side">
-      <div class="side-title">Reading Path</div>
-      <h2>阅读路径</h2>
-      <button class="nav-item active" data-theory="valency"><div class="nav-title">⟡ 配价语法</div><div class="nav-desc">看动词需要几个强制论元，是整个实验室的中心视角。</div></button>
-      <button class="nav-item" data-theory="case"><div class="nav-title">◈ 格语法</div><div class="nav-desc">看名词性成分承担施事、受事、工具、处所等语义格。</div></button>
-      <button class="nav-item" data-theory="dependency"><div class="nav-title">⌁ 依存语法</div><div class="nav-desc">把词与词之间的支配关系转化为可计算结构。</div></button>
-      <button class="nav-item" data-theory="topic"><div class="nav-title">▣ 话题-述题</div><div class="nav-desc">解释汉语从话题到说明的认知展开顺序。</div></button>
-      <button class="nav-item" data-theory="theta"><div class="nav-title">θ θ-角色</div><div class="nav-desc">检查论元角色分配是否清楚、唯一、完整。</div></button>
-      <div class="reading-note">
-        先看动词需要哪些角色，再看这些角色如何进入句子形式。这个顺序更适合读者理解汉语句法。
+  <main class="wrap">
+    <section class="intro">
+      <div class="intro-note">
+        <div class="eyebrow">Input Sentence</div>
+        <h2>输入句子</h2>
+        <p>输入或选择一个汉语句子，页面会先找出核心动词，再说明这个动词需要哪些角色。读者不必先懂术语，也能顺着例句看懂分析。</p>
       </div>
-    </aside>
-
-    <main class="maincol">
-      <section class="panel workbench">
-        <div class="section-head">
-          <div>
-            <h2>试着输入一句中文</h2>
-            <p class="hint">页面会先找出核心动词，再说明它需要哪些角色，以及这些角色如何组成句子。</p>
-          </div>
-          <div class="controls">
-            <button class="btn" id="clearBtn">重新开始</button>
-          </div>
-        </div>
-        <div class="input-shell">
+      <div class="workbench">
+        <div class="input-row">
           <textarea id="sentenceInput" maxlength="200">小明把书放在桌子上。</textarea>
-          <div class="input-foot">
-            <span class="counter" id="counter">10/200</span>
-            <button class="btn primary" id="analyzeBtn">分析句子</button>
-          </div>
+          <button class="btn primary" id="analyzeBtn">分析句子</button>
         </div>
-        <div class="examples" id="examples"></div>
-        <div class="notice" id="status">请选择一个例句，或输入自己的句子，查看配价结构如何展开。</div>
-      </section>
-
-      <div class="two-col">
-        <section class="panel canvas">
-          <div class="section-head">
-            <div>
-              <h3>配价核心与依存图</h3>
-              <p class="hint">配价语法回答“这个动词需要几个角色”；依存图则显示这些角色与动词的关系。</p>
-            </div>
-          </div>
-          <div class="canvas-grid">
-            <div class="mini-card">
-              <div class="label">核心动词</div>
-              <div class="verb-badge" id="verbBadge">放</div>
-            </div>
-            <div class="mini-card">
-              <div class="label">配价框架</div>
-              <div class="formula" id="valencyFrame">放 &lt;施事, 受事, 处所&gt;</div>
-            </div>
-          </div>
-          <div class="dependency-box">
-            <div class="arc-stage"><svg id="arcSvg" viewBox="0 0 720 112" preserveAspectRatio="none"></svg></div>
-            <div class="tokens" id="tokens"></div>
-          </div>
-        </section>
-
-        <section class="panel detail">
-          <div class="section-head">
-            <div>
-              <h3 id="detailTitle">配价语法分析</h3>
-              <p class="hint" id="detailHint">把抽象语法术语转成可以阅读、讲解和比较的分析。</p>
-            </div>
-          </div>
-          <div class="formula" id="detailFormula"></div>
-          <p class="hint" id="detailBody" style="margin-top:14px"></p>
-          <div class="role-list" id="detailRoles"></div>
-        </section>
+        <div class="examples" id="examples"><span class="examples-label">示例句子：</span></div>
+        <p class="status" id="status">请选择一个例句，或输入自己的句子，查看配价结构如何展开。</p>
       </div>
+    </section>
 
-      <div class="two-col">
-        <section class="panel teaching">
-          <div class="section-head">
-            <div>
-              <h3>教学转化建议</h3>
-              <p class="hint">把语法理论转成国际中文课堂上能讲清楚的话。</p>
-            </div>
-          </div>
-          <div class="teaching-list" id="teachingList"></div>
-        </section>
-        <section class="panel export">
-          <div class="section-head">
-            <div>
-              <h3>结构化导出</h3>
-              <p class="hint">可复制进论文图表、课件或课堂材料。</p>
-            </div>
-          </div>
-          <pre id="jsonPreview"></pre>
-          <div class="controls" style="margin-top:12px">
-            <button class="btn" id="copyBtn">复制 JSON</button>
-            <button class="btn" id="downloadBtn">下载 JSON</button>
-          </div>
-        </section>
-      </div>
-    </main>
-
-    <aside class="panel result-stack rightcol">
-      <div class="section-head">
-        <div>
-          <h3>多理论结果对比</h3>
-          <p class="hint">以配价语法为主轴，其他理论提供补充视角。</p>
+    <section class="grid">
+      <article class="card">
+        <h3><span class="icon">一</span>配价框架解析</h3>
+        <p class="card-copy">配价语法关注动词本身：一个动词通常会预设若干角色，这些角色共同构成句子的基本骨架。</p>
+        <div class="frame-box">
+          <div class="verb"><span id="verbText">放</span><span class="formula" id="valencyFrame">施事 + 受事 + 处所</span></div>
+          <div class="roles" id="roles"></div>
         </div>
-      </div>
-      <div id="resultCards"></div>
-    </aside>
-  </div>
+        <p class="card-copy" id="valencyExplanation"></p>
+      </article>
+
+      <article class="card">
+        <h3><span class="icon">二</span>句法依存结构</h3>
+        <p class="card-copy">依存图把词与词之间的关系画出来：核心动词位于中心，其他成分围绕它承担不同功能。</p>
+        <div class="arc-board">
+          <svg class="arc-svg" id="arcSvg" viewBox="0 0 720 136" preserveAspectRatio="none"></svg>
+          <div class="tokens" id="tokens"></div>
+        </div>
+        <p class="card-copy" id="dependencyInsight"></p>
+      </article>
+
+      <article class="card">
+        <h3><span class="icon">三</span>多维语法视角比较</h3>
+        <p class="card-copy">同一个句子可以从配价、格语法、话题结构和语义角色等角度观察。不同视角并不互相排斥，而是解释不同层面。</p>
+        <div class="comparison" id="comparison"></div>
+        <div class="teaching">
+          <h4>教学提示</h4>
+          <ul id="teachingList"></ul>
+        </div>
+      </article>
+    </section>
+
+    <section class="more">
+      <h3>更多示例探索</h3>
+      <div class="more-grid" id="moreExamples"></div>
+    </section>
+  </main>
 
   <script>
     const examples = [
@@ -520,21 +372,10 @@
       "妈妈送给孩子一本书。"
     ];
 
-    const state = {
-      theory: "valency",
-      result: null
-    };
+    let result = null;
 
-    const colorClass = {
-      emerald: "",
-      rose: "rose",
-      gold: "gold",
-      blue: "blue",
-      purple: "purple"
-    };
-
-    function role(label, english, word, note, color = "emerald") {
-      return { label, english, word, note, color };
+    function role(label, english, word, note) {
+      return { label, english, word, note };
     }
 
     function clean(input) {
@@ -550,13 +391,13 @@
           source: "local",
           confidence: .86,
           sentence,
-          tokens: [{ word: verb, pos: "vv", gloss: "自然事件" }, { word: "。", pos: "w", gloss: "标点" }],
+          tokens: [{ word: verb, pos: "自然事件" }, { word: "。", pos: "标点" }],
           verb,
-          valency: { type: "零价动词", frame: `${verb} <∅>`, explanation: "自然现象无需施事或受事，句子核心是事件本身。", slots: [] },
-          caseGrammar: { pattern: "Event-only", insight: "格语法提醒我们：并非每个句子都必须寻找动作发出者。", cases: [role("事件格", "Event", verb, "自然事件作为整句中心", "rose")] },
-          dependency: { root: verb, insight: "依存图极简，根节点就是自然事件谓词。", relations: [{ from: "。", to: verb, rel: "punct", color: "#66717d" }] },
+          valency: { type: "零价动词", frame: "存现句（无施事）", explanation: "自然现象无需施事或受事，句子核心是事件本身。", slots: [] },
+          caseGrammar: { pattern: "事件格", insight: "格语法提醒我们：并非每个句子都必须寻找动作发出者。" },
+          dependency: { root: verb, insight: "依存图极简，根节点就是自然事件谓词。", relations: [{ from: "。", to: verb, rel: "标点", color: "#697684" }] },
           topicComment: { topic: "天气/自然环境", comment: verb, insight: "汉语可直接把环境状态推到前景，不必补出形式主语。" },
-          theta: { grid: `${verb} <Event>`, principle: "零价结构没有普通论元，只有事件被陈述。", roles: [role("事件", "Event", verb, "发生的自然状态")] },
+          theta: { grid: `${verb} <Event>`, principle: "零价结构没有普通论元，只有事件被陈述。" },
           pedagogy: ["讲解汉语无主句。", "与英语 it rains 的形式主语形成对比。", "提示学生：配价不是找主语，而是看动词需要什么角色。"]
         };
       }
@@ -566,19 +407,14 @@
           source: "local",
           confidence: .91,
           sentence,
-          tokens: [
-            { word: "台上", pos: "f", gloss: "处所" },
-            { word: "坐着", pos: "vv", gloss: "存在/状态" },
-            { word: "主席团", pos: "nn", gloss: "存在主体" },
-            { word: "。", pos: "w", gloss: "标点" }
-          ],
+          tokens: [{ word: "台上", pos: "处所" }, { word: "坐着", pos: "谓词" }, { word: "主席团", pos: "存在主体" }, { word: "。", pos: "标点" }],
           verb: "坐着",
-          valency: { type: "二价存在动词", frame: "坐着 <处所, 存在主体>", explanation: "动词把处所和存在主体连接起来，核心不是谁主动坐，而是某处呈现某种状态。", slots: [role("处所", "Location", "台上", "空间话题先行", "gold"), role("存在主体", "Theme", "主席团", "被呈现的实体")] },
-          caseGrammar: { pattern: "Locative + Existential Predicate + Theme", insight: "格语法比传统主谓法更容易解释处所前置句。", cases: [role("处所格", "Locative", "台上", "状态呈现的位置", "gold"), role("主题格", "Theme", "主席团", "被安置在处所中的实体")] },
-          dependency: { root: "坐着", insight: "依存分析把“坐着”作为根节点，同时保留“台上”的处所依存关系。", relations: [{ from: "台上", to: "坐着", rel: "obl:loc", color: "#c69232" }, { from: "主席团", to: "坐着", rel: "nsubj/exist", color: "#12685f" }, { from: "。", to: "坐着", rel: "punct", color: "#66717d" }] },
+          valency: { type: "二价存在动词", frame: "处所 + 存在主体", explanation: "动词把处所和存在主体连接起来，核心不是谁主动坐，而是某处呈现某种状态。", slots: [role("处所", "Location", "台上", "空间话题先行"), role("存在主体", "Theme", "主席团", "被呈现的实体")] },
+          caseGrammar: { pattern: "处所格 + 主题格", insight: "格语法比传统主谓法更容易解释处所前置句。" },
+          dependency: { root: "坐着", insight: "依存分析把“坐着”作为根节点，同时保留“台上”的处所依存关系。", relations: [{ from: "台上", to: "坐着", rel: "处所", color: "#b8872b" }, { from: "主席团", to: "坐着", rel: "存在主体", color: "#0d6b63" }] },
           topicComment: { topic: "台上", comment: "坐着主席团", insight: "先给观察场域，再说明场域中的状态，比硬判“台上”为主语更贴近汉语。" },
-          theta: { grid: "坐着 <Location, Theme>", principle: "每个论元获得一个清晰的语义角色，不必强行套入施事/受事。", roles: [role("处所", "Location", "台上", "状态呈现的空间", "gold"), role("主题", "Theme", "主席团", "被陈述位置/状态的实体")] },
-          pedagogy: ["讲“处所作话题”。", "展示汉语存在句与英语主语句的差异。", "让学习者先问“动词需要哪些位置”，再判断句法成分。"]
+          theta: { grid: "坐着 <Location, Theme>", principle: "每个论元获得一个清晰的语义角色，不必强行套入施事/受事。" },
+          pedagogy: ["讲“处所作话题”。", "展示汉语存在句与英语主语句的差异。", "先问动词“需要哪些位置”，再判断句法成分。"]
         };
       }
 
@@ -588,13 +424,13 @@
           source: "local",
           confidence: .84,
           sentence,
-          tokens: [{ word: "李四/他", pos: "nr", gloss: "经验者" }, { word: verb, pos: "vv", gloss: "心理动词" }, { word: "狗/对象", pos: "nn", gloss: "刺激物" }, { word: "。", pos: "w", gloss: "标点" }],
+          tokens: [{ word: "李四/他", pos: "经验者" }, { word: verb, pos: "心理动词" }, { word: "狗/对象", pos: "刺激物" }, { word: "。", pos: "标点" }],
           verb,
-          valency: { type: "二价心理动词", frame: `${verb} <经验者, 刺激物>`, explanation: "心理动词不是典型施事动作，而是经验者被某个对象触发心理状态。", slots: [role("经验者", "Experiencer", "李四/他", "经历心理状态的人", "purple"), role("刺激物", "Stimulus", "狗/对象", "引发心理状态的对象", "rose")] },
-          caseGrammar: { pattern: "Experiencer + Psychological Predicate + Stimulus", insight: "格语法能避免把所有句首人称都粗暴解释为主动施事。", cases: [role("经验格", "Experiencer", "李四/他", "承受心理体验", "purple"), role("刺激格", "Stimulus", "狗/对象", "触发心理状态", "rose")] },
-          dependency: { root: verb, insight: "依存语法保留形式关系，语义角色进一步解释关系性质。", relations: [{ from: "李四/他", to: verb, rel: "nsubj:exp", color: "#6d54b5" }, { from: "狗/对象", to: verb, rel: "obj/stim", color: "#a93d31" }] },
+          valency: { type: "二价心理动词", frame: "经验者 + 刺激物", explanation: "心理动词不是典型施事动作，而是经验者被某个对象触发心理状态。", slots: [role("经验者", "Experiencer", "李四/他", "经历心理状态的人"), role("刺激物", "Stimulus", "狗/对象", "引发心理状态的对象")] },
+          caseGrammar: { pattern: "经验格 + 刺激格", insight: "格语法能避免把所有句首人称都粗暴解释为主动施事。" },
+          dependency: { root: verb, insight: "依存语法保留形式关系，语义角色进一步解释关系性质。", relations: [{ from: "李四/他", to: verb, rel: "经验者", color: "#486f92" }, { from: "狗/对象", to: verb, rel: "刺激物", color: "#b14b3d" }] },
           topicComment: { topic: "李四/他", comment: `${verb}狗/对象`, insight: "句首实体作为话题，后文说明其心理状态。" },
-          theta: { grid: `${verb} <Experiencer, Stimulus>`, principle: "心理动词显示：语义角色不等同于传统主语宾语。", roles: [role("经验者", "Experiencer", "李四/他", "心理状态的承受者", "purple"), role("刺激物", "Stimulus", "狗/对象", "心理状态来源", "rose")] },
+          theta: { grid: `${verb} <Experiencer, Stimulus>`, principle: "心理动词显示：语义角色不等同于传统主语宾语。" },
           pedagogy: ["讲心理动词。", "提示“主语”不自动等同于“施事”。", "适合与“我喜欢茶/茶我喜欢”做话题结构对比。"]
         };
       }
@@ -604,13 +440,13 @@
           source: "local",
           confidence: .88,
           sentence,
-          tokens: [{ word: "妈妈/说话人", pos: "nr", gloss: "施事" }, { word: "送给", pos: "vv", gloss: "转移动词" }, { word: "孩子/对方", pos: "nr", gloss: "受领者" }, { word: "书/信息", pos: "nn", gloss: "客体" }, { word: "。", pos: "w", gloss: "标点" }],
+          tokens: [{ word: "妈妈/说话人", pos: "施事" }, { word: "送给", pos: "转移动词" }, { word: "孩子/对方", pos: "受领者" }, { word: "书/信息", pos: "客体" }, { word: "。", pos: "标点" }],
           verb: "送给/告诉",
-          valency: { type: "三价动词", frame: "V <施事, 受领者, 客体>", explanation: "转移类动词需要动作发出者、接受者和被转移对象三类角色。", slots: [role("施事", "Agent", "妈妈/说话人", "发出转移动作"), role("受领者", "Recipient", "孩子/对方", "接受对象", "gold"), role("客体", "Theme", "书/信息", "被转移的内容", "blue")] },
-          caseGrammar: { pattern: "Agent + Transfer Verb + Recipient + Theme", insight: "格语法可以把双宾结构、介词“给”的功能讲清楚。", cases: [role("施事格", "Agentive", "妈妈/说话人", "动作发出者"), role("受领格", "Recipient", "孩子/对方", "接受者", "gold"), role("主题格", "Theme", "书/信息", "被转移对象", "blue")] },
-          dependency: { root: "送给/告诉", insight: "依存关系区分直接宾语和间接宾语，利于做机器可读句法图。", relations: [{ from: "妈妈/说话人", to: "送给/告诉", rel: "nsubj", color: "#12685f" }, { from: "孩子/对方", to: "送给/告诉", rel: "iobj", color: "#c69232" }, { from: "书/信息", to: "送给/告诉", rel: "obj", color: "#2a5f91" }] },
+          valency: { type: "三价动词", frame: "施事 + 受领者 + 客体", explanation: "转移类动词需要动作发出者、接受者和被转移对象三类角色。", slots: [role("施事", "Agent", "妈妈/说话人", "发出转移动作"), role("受领者", "Recipient", "孩子/对方", "接受对象"), role("客体", "Theme", "书/信息", "被转移的内容")] },
+          caseGrammar: { pattern: "施事格 + 受领格 + 主题格", insight: "格语法可以把双宾结构、介词“给”的功能讲清楚。" },
+          dependency: { root: "送给/告诉", insight: "依存关系区分直接宾语和间接宾语，利于做机器可读句法图。", relations: [{ from: "妈妈/说话人", to: "送给/告诉", rel: "施事", color: "#0d6b63" }, { from: "孩子/对方", to: "送给/告诉", rel: "受领者", color: "#b8872b" }, { from: "书/信息", to: "送给/告诉", rel: "客体", color: "#486f92" }] },
           topicComment: { topic: "妈妈/说话人", comment: "把某物转移给某人", insight: "话题-述题视角可展示事件叙述的展开顺序。" },
-          theta: { grid: "送给/告诉 <Agent, Recipient, Theme>", principle: "三价动词最适合演示配价语法与 θ-准则的关系。", roles: [role("施事", "Agent", "妈妈/说话人", "主动发出转移动作"), role("受领者", "Recipient", "孩子/对方", "转移终点", "gold"), role("主题", "Theme", "书/信息", "被转移内容", "blue")] },
+          theta: { grid: "送给/告诉 <Agent, Recipient, Theme>", principle: "三价动词最适合演示配价语法与 θ-准则的关系。" },
           pedagogy: ["讲双宾语和“给”字结构。", "让学生画出“谁给谁什么”。", "适合扩展到教材中的交际功能训练。"]
         };
       }
@@ -619,247 +455,190 @@
       const agent = sentence.includes("张三") ? "张三" : "小明";
       const patient = sentence.includes("门") ? "那扇门" : "书";
       const third = sentence.includes("钥匙") ? "钥匙" : "桌子上";
+      const thirdLabel = sentence.includes("钥匙") ? "工具" : "处所";
       return {
         source: "local",
         confidence: .89,
         sentence,
-        tokens: [{ word: agent, pos: "nr", gloss: "施事" }, { word: sentence.includes("把") ? "把" : "标记", pos: "p", gloss: "处置标记" }, { word: patient, pos: "nn", gloss: "受事" }, { word: verb, pos: "vv", gloss: "核心动词" }, { word: third, pos: "f", gloss: sentence.includes("钥匙") ? "工具" : "目标处所" }, { word: "。", pos: "w", gloss: "标点" }],
+        tokens: [{ word: agent, pos: "施事" }, { word: "把", pos: "标记" }, { word: patient, pos: "受事" }, { word: verb, pos: "核心动词" }, { word: third, pos: thirdLabel }, { word: "。", pos: "标点" }],
         verb,
-        valency: { type: "三价动作动词", frame: `${verb} <施事, 受事, ${sentence.includes("钥匙") ? "工具" : "处所"}>`, explanation: "核心动词不仅需要施事和受事，还常要求目标处所、路径或工具补足事件结构。", slots: [role("施事", "Agent", agent, "有意发出动作"), role("受事", "Patient", patient, "动作影响的对象", "rose"), role(sentence.includes("钥匙") ? "工具" : "处所", sentence.includes("钥匙") ? "Instrument" : "Location", third, "事件完成的条件", "gold")] },
-        caseGrammar: { pattern: "Agent + Marker + Patient + Verb + Location/Instrument", insight: "格语法能把“把”字句中的受事提前解释为语义突显，而不是简单倒装。", cases: [role("施事格", "Agentive", agent, "动作发出者"), role("受事格", "Patientive", patient, "被处置或发生变化的对象", "rose"), role(sentence.includes("钥匙") ? "工具格" : "处所格", sentence.includes("钥匙") ? "Instrument" : "Locative", third, "事件完成的手段或位置", "gold")] },
-        dependency: { root: verb, insight: "依存语法以动词为根，把标记、受事、处所/工具都挂接到事件核心上。", relations: [{ from: agent, to: verb, rel: "nsubj", color: "#12685f" }, { from: "把", to: verb, rel: "mark", color: "#c69232" }, { from: patient, to: verb, rel: "obj", color: "#a93d31" }, { from: third, to: verb, rel: sentence.includes("钥匙") ? "obl:ins" : "obl:loc", color: "#2a5f91" }] },
+        valency: { type: "三价动作动词", frame: `施事 + 受事 + ${thirdLabel}`, explanation: "核心动词不仅需要施事和受事，还常常需要目标处所、路径或工具来补足事件结构。", slots: [role("施事", "Agent", agent, "动作的发出者，通常有意识地推动事件发生"), role("受事", "Patient", patient, "动作所作用的对象，通常直接受到影响"), role(thirdLabel, thirdLabel === "工具" ? "Instrument" : "Location", third, "补足事件完成条件的成分")] },
+        caseGrammar: { pattern: `施事格 + 受事格 + ${thirdLabel}格`, insight: "格语法能把“把”字句中的受事提前解释为语义突显，而不是简单倒装。" },
+        dependency: { root: verb, insight: "依存语法以动词为根，把标记、受事、处所/工具都挂接到事件核心上。", relations: [{ from: agent, to: verb, rel: "施事", color: "#0d6b63" }, { from: patient, to: verb, rel: "受事", color: "#b14b3d" }, { from: third, to: verb, rel: thirdLabel, color: "#486f92" }] },
         topicComment: { topic: agent, comment: sentence.replace(/[。！？]/g, "").replace(agent, ""), insight: "汉语句子可从人物、受事或处所展开，话题位置体现信息组织策略。" },
-        theta: { grid: `${verb} <Agent, Patient, ${sentence.includes("钥匙") ? "Instrument" : "Location"}>`, principle: "一个论元只承担一个核心角色，一个核心角色只分配给一个论元。", roles: [role("施事", "Agent", agent, "动作发出者"), role("受事", "Patient", patient, "受动作影响", "rose"), role(sentence.includes("钥匙") ? "工具" : "处所", sentence.includes("钥匙") ? "Instrument" : "Location", third, "事件完成条件", "gold")] },
+        theta: { grid: `${verb} <Agent, Patient, ${thirdLabel === "工具" ? "Instrument" : "Location"}>`, principle: "一个论元只承担一个核心角色，一个核心角色只分配给一个论元。" },
         pedagogy: ["讲“把”字句、处置义和事件完成。", "先问动词“需要几个角色”，再解释语序。", "把形式句法与语义角色分层讲解。"]
       };
     }
 
     async function enhancedAnalyze(sentence) {
       const base = localAnalyze(sentence);
-      const response = await fetch("/api/deepseek-grammar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sentence })
-      });
-      if (!response.ok) return base;
-      const data = await response.json();
-      if (data.raw) return base;
-      return {
-        ...base,
-        ...data,
-        valency: { ...base.valency, ...(data.valency || {}) },
-        caseGrammar: { ...base.caseGrammar, ...(data.caseGrammar || {}) },
-        dependency: { ...base.dependency, ...(data.dependency || {}) },
-        topicComment: { ...base.topicComment, ...(data.topicComment || {}) },
-        theta: { ...base.theta, ...(data.theta || {}) },
-        tokens: data.tokens || base.tokens,
-        pedagogy: data.pedagogy || base.pedagogy,
-        confidence: data.confidence || base.confidence,
-        source: "enhanced"
-      };
+      try {
+        const response = await fetch("/api/deepseek-grammar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sentence })
+        });
+        if (!response.ok) return base;
+        const data = await response.json();
+        if (data.raw) return base;
+        return {
+          ...base,
+          ...data,
+          valency: { ...base.valency, ...(data.valency || {}) },
+          caseGrammar: { ...base.caseGrammar, ...(data.caseGrammar || {}) },
+          dependency: { ...base.dependency, ...(data.dependency || {}) },
+          topicComment: { ...base.topicComment, ...(data.topicComment || {}) },
+          theta: { ...base.theta, ...(data.theta || {}) },
+          tokens: data.tokens || base.tokens,
+          pedagogy: data.pedagogy || base.pedagogy,
+          confidence: data.confidence || base.confidence,
+          source: "enhanced"
+        };
+      } catch {
+        return base;
+      }
     }
 
     function render() {
-      const result = state.result;
-      document.getElementById("verbBadge").textContent = result.verb;
+      document.getElementById("verbText").textContent = result.verb;
       document.getElementById("valencyFrame").textContent = result.valency.frame;
-      renderTokens(result);
-      renderArcs(result);
-      renderDetail(result);
-      renderCards(result);
-      renderTeaching(result);
-      document.getElementById("jsonPreview").textContent = JSON.stringify({
-        sentence: result.sentence,
-        source: result.source,
-        confidence: result.confidence,
-        verb: result.verb,
-        valency: result.valency,
-        caseGrammar: result.caseGrammar,
-        dependency: result.dependency,
-        topicComment: result.topicComment,
-        theta: result.theta,
-        pedagogy: result.pedagogy
-      }, null, 2);
+      document.getElementById("valencyExplanation").textContent = result.valency.explanation;
+      document.getElementById("dependencyInsight").textContent = result.dependency.insight;
+      renderRoles();
+      renderArcs();
+      renderTokens();
+      renderComparison();
+      renderTeaching();
+      renderMoreExamples();
     }
 
-    function renderTokens(result) {
-      const box = document.getElementById("tokens");
+    function renderRoles() {
+      const box = document.getElementById("roles");
       box.innerHTML = "";
-      result.tokens.forEach(token => {
+      if (!result.valency.slots || result.valency.slots.length === 0) {
+        box.innerHTML = `<div class="role"><strong>无强制论元</strong><br><em>例：</em>${result.verb} 这样的自然事件可直接成句。</div>`;
+        return;
+      }
+      result.valency.slots.forEach(item => {
         const div = document.createElement("div");
-        div.className = `token ${token.pos}`;
-        div.innerHTML = `<strong>${token.word}</strong><span>${token.pos}${token.gloss ? " · " + token.gloss : ""}</span>`;
+        div.className = "role";
+        div.innerHTML = `<strong>${item.label} (${item.english})</strong><br><em>例：</em>${item.word}<br>${item.note}`;
         box.appendChild(div);
       });
     }
 
-    function renderArcs(result) {
+    function renderArcs() {
       const svg = document.getElementById("arcSvg");
-      const words = result.tokens.map(t => t.word);
-      const rels = result.dependency.relations.slice(0, 5);
-      svg.innerHTML = `<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#17212b"></path></marker></defs>`;
-      rels.forEach((rel, index) => {
+      const words = result.tokens.map(item => item.word);
+      svg.innerHTML = `<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#17212f"></path></marker></defs>`;
+      result.dependency.relations.slice(0, 5).forEach((rel, index) => {
         const from = Math.max(0, words.indexOf(rel.from));
         const to = Math.max(0, words.indexOf(rel.to));
-        const x1 = 70 + from * 118;
-        const x2 = 70 + to * 118;
-        const y = 94;
-        const h = 28 + Math.abs(from - to) * 12 + index * 6;
+        const x1 = 70 + from * 116;
+        const x2 = 70 + to * 116;
+        const y = 102;
+        const h = 30 + Math.abs(from - to) * 13 + index * 4;
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", `M ${x1} ${y} C ${x1} ${y - h}, ${x2} ${y - h}, ${x2} ${y}`);
         path.setAttribute("fill", "none");
-        path.setAttribute("stroke", rel.color || "#12685f");
+        path.setAttribute("stroke", rel.color || "#0d6b63");
         path.setAttribute("stroke-width", "2");
         path.setAttribute("marker-end", "url(#arrow)");
         svg.appendChild(path);
         const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
         text.setAttribute("x", (x1 + x2) / 2);
-        text.setAttribute("y", Math.max(14, y - h - 4));
+        text.setAttribute("y", Math.max(18, y - h - 4));
         text.setAttribute("text-anchor", "middle");
-        text.setAttribute("fill", rel.color || "#12685f");
+        text.setAttribute("fill", rel.color || "#0d6b63");
         text.setAttribute("font-size", "12");
-        text.setAttribute("font-weight", "750");
+        text.setAttribute("font-weight", "760");
         text.textContent = rel.rel;
         svg.appendChild(text);
       });
     }
 
-    function getDetail(result) {
-      const map = {
-        valency: { title: "配价语法分析", formula: result.valency.frame, body: result.valency.explanation, roles: result.valency.slots, empty: "该句为零价结构，没有普通论元。" },
-        case: { title: "格语法分析", formula: result.caseGrammar.pattern, body: result.caseGrammar.insight, roles: result.caseGrammar.cases },
-        dependency: { title: "依存语法分析", formula: `Root: ${result.dependency.root}`, body: result.dependency.insight, roles: result.dependency.relations.map(r => role(r.rel, "Dependency", `${r.from} → ${r.to}`, "词项之间的直接支配关系", "blue")) },
-        topic: { title: "话题-述题分析", formula: `${result.topicComment.topic} | ${result.topicComment.comment}`, body: result.topicComment.insight, roles: [role("话题", "Topic", result.topicComment.topic, "先被提出的认知对象", "gold"), role("述题", "Comment", result.topicComment.comment, "对话题的说明与展开")] },
-        theta: { title: "θ-角色分配", formula: result.theta.grid, body: result.theta.principle, roles: result.theta.roles }
-      };
-      return map[state.theory] || map.valency;
-    }
-
-    function renderDetail(result) {
-      const detail = getDetail(result);
-      document.getElementById("detailTitle").textContent = detail.title;
-      document.getElementById("detailFormula").textContent = detail.formula;
-      document.getElementById("detailBody").textContent = detail.body;
-      const list = document.getElementById("detailRoles");
-      list.innerHTML = "";
-      if (!detail.roles || detail.roles.length === 0) {
-        list.innerHTML = `<div class="role">${detail.empty || "暂无角色。"}</div>`;
-        return;
-      }
-      detail.roles.forEach(item => list.appendChild(roleElement(item)));
-    }
-
-    function roleElement(item) {
-      const div = document.createElement("div");
-      div.className = `role ${colorClass[item.color] || ""}`;
-      div.innerHTML = `<div class="role-top"><span>${item.word}</span><small>${item.english}</small></div><div style="margin-top:6px;font-weight:800">${item.label}</div><div class="role-note">${item.note}</div>`;
-      return div;
-    }
-
-    function renderCards(result) {
-      const cards = [
-        ["配价语法", result.valency.type, result.valency.frame],
-        ["格语法", result.caseGrammar.pattern, result.caseGrammar.insight],
-        ["依存语法", `根节点：${result.dependency.root}`, result.dependency.insight],
-        ["话题-述题", `${result.topicComment.topic} / ${result.topicComment.comment}`, result.topicComment.insight],
-        ["θ-角色", result.theta.grid, result.theta.principle]
-      ];
-      const box = document.getElementById("resultCards");
+    function renderTokens() {
+      const box = document.getElementById("tokens");
       box.innerHTML = "";
-      cards.forEach((card, index) => {
+      result.tokens.forEach(token => {
         const div = document.createElement("div");
-        div.className = "result-card";
-        div.innerHTML = `<div class="result-title"><span class="num">${index + 1}</span>${card[0]}</div><div class="result-value">${card[1]}</div><div class="result-desc">${card[2]}</div>`;
+        div.className = "token";
+        div.innerHTML = `<strong>${token.word}</strong><span>${token.pos}</span>`;
         box.appendChild(div);
       });
     }
 
-    function renderTeaching(result) {
-      const box = document.getElementById("teachingList");
+    function renderComparison() {
+      const rows = [
+        ["配价语法", result.valency.type + "： " + result.valency.frame],
+        ["格语法", result.caseGrammar.pattern + "。 " + result.caseGrammar.insight],
+        ["话题-述题", result.topicComment.topic + " / " + result.topicComment.comment + "。 " + result.topicComment.insight],
+        ["语义角色", result.theta.grid + "。 " + result.theta.principle]
+      ];
+      const box = document.getElementById("comparison");
       box.innerHTML = "";
-      result.pedagogy.forEach(item => {
+      rows.forEach(row => {
         const div = document.createElement("div");
-        div.className = "teach";
-        div.textContent = item;
+        div.className = "row";
+        div.innerHTML = `<b>${row[0]}</b><span>${row[1]}</span>`;
         box.appendChild(div);
+      });
+    }
+
+    function renderTeaching() {
+      const list = document.getElementById("teachingList");
+      list.innerHTML = "";
+      result.pedagogy.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        list.appendChild(li);
+      });
+    }
+
+    function renderMoreExamples() {
+      const box = document.getElementById("moreExamples");
+      box.innerHTML = "";
+      examples.filter(item => item !== result.sentence).slice(0, 4).forEach(item => {
+        const preview = localAnalyze(item);
+        const btn = document.createElement("button");
+        btn.className = "more-card";
+        btn.innerHTML = `<strong>${item}</strong><span>配价模式：${preview.valency.frame}</span>`;
+        btn.addEventListener("click", () => setSentence(item, true));
+        box.appendChild(btn);
       });
     }
 
     async function analyze() {
       const input = document.getElementById("sentenceInput").value;
       const status = document.getElementById("status");
-      document.getElementById("analyzeBtn").textContent = "分析中...";
-      try {
-        status.textContent = "正在生成语法分析...";
-        state.result = await enhancedAnalyze(input);
-        status.textContent = "已生成分析。可以从配价框架开始阅读，再对照其他理论视角。";
-      } catch (err) {
-        state.result = localAnalyze(input);
-        status.textContent = "已生成分析。可以从配价框架开始阅读，再对照其他理论视角。";
-      } finally {
-        document.getElementById("analyzeBtn").textContent = "分析句子";
-        render();
-      }
+      const button = document.getElementById("analyzeBtn");
+      button.textContent = "分析中...";
+      status.textContent = "正在生成语法分析...";
+      result = await enhancedAnalyze(input);
+      render();
+      status.textContent = "已生成分析。可以先读配价框架，再对照其他语法视角。";
+      button.textContent = "分析句子";
+    }
+
+    function setSentence(sentence, autoAnalyze = false) {
+      document.getElementById("sentenceInput").value = sentence;
+      result = localAnalyze(sentence);
+      render();
+      document.getElementById("status").textContent = autoAnalyze ? "已载入例句。可以先读配价框架。" : "请选择一个例句，或输入自己的句子，查看配价结构如何展开。";
     }
 
     function init() {
-      const input = document.getElementById("sentenceInput");
-      const counter = document.getElementById("counter");
       const examplesBox = document.getElementById("examples");
-      examples.forEach(item => {
+      examples.slice(0, 4).forEach(item => {
         const btn = document.createElement("button");
         btn.className = "example";
         btn.textContent = item;
-        btn.addEventListener("click", () => {
-          input.value = item;
-          counter.textContent = `${input.value.length}/200`;
-          state.result = localAnalyze(item);
-          document.getElementById("status").textContent = "已载入例句。可以从配价框架开始阅读。";
-          render();
-        });
+        btn.addEventListener("click", () => setSentence(item, true));
         examplesBox.appendChild(btn);
       });
-
-      input.addEventListener("input", () => counter.textContent = `${input.value.length}/200`);
-      document.getElementById("clearBtn").addEventListener("click", () => {
-        input.value = "";
-        counter.textContent = "0/200";
-      });
       document.getElementById("analyzeBtn").addEventListener("click", analyze);
-      document.querySelectorAll(".nav-item").forEach(btn => {
-        btn.addEventListener("click", () => {
-          document.querySelectorAll(".nav-item").forEach(item => item.classList.remove("active"));
-          btn.classList.add("active");
-          state.theory = btn.dataset.theory;
-          render();
-        });
-      });
-      document.getElementById("copyBtn").addEventListener("click", async () => {
-        const text = document.getElementById("jsonPreview").textContent;
-        if (navigator.clipboard) {
-          await navigator.clipboard.writeText(text);
-        } else {
-          const area = document.createElement("textarea");
-          area.value = text;
-          document.body.appendChild(area);
-          area.select();
-          document.execCommand("copy");
-          area.remove();
-        }
-        document.getElementById("status").textContent = "JSON 已复制。";
-      });
-      document.getElementById("downloadBtn").addEventListener("click", () => {
-        const blob = new Blob([document.getElementById("jsonPreview").textContent], { type: "application/json;charset=utf-8" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "valency-grammar-analysis.json";
-        a.click();
-        URL.revokeObjectURL(url);
-      });
-
-      state.result = localAnalyze(input.value);
-      counter.textContent = `${input.value.length}/200`;
+      result = localAnalyze(document.getElementById("sentenceInput").value);
       render();
     }
 
