@@ -490,9 +490,11 @@
           dependency: { ...base.dependency, ...(data.dependency || {}) },
           topicComment: { ...base.topicComment, ...(data.topicComment || {}) },
           theta: { ...base.theta, ...(data.theta || {}) },
-          tokens: data.tokens || base.tokens,
-          pedagogy: data.pedagogy || base.pedagogy,
-          confidence: data.confidence || base.confidence,
+          tokens: Array.isArray(data.tokens) && data.tokens.every(item => item && typeof item === "object" && "word" in item)
+            ? data.tokens
+            : base.tokens,
+          pedagogy: Array.isArray(data.pedagogy) ? data.pedagogy : base.pedagogy,
+          confidence: typeof data.confidence === "number" ? data.confidence : base.confidence,
           source: "enhanced"
         };
       } catch {
