@@ -625,6 +625,82 @@
       gap: 12px;
     }
 
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .concept {
+      border: 1px solid rgba(203, 222, 216, .9);
+      border-radius: 8px;
+      background: rgba(255, 253, 248, .78);
+      padding: 15px;
+    }
+
+    .concept b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--jade-dark);
+      font-size: 16px;
+    }
+
+    .concept span {
+      display: block;
+      color: var(--ink-2);
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .valency-scale {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .scale-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,.72);
+      padding: 14px;
+      min-height: 128px;
+    }
+
+    .scale-item strong {
+      display: block;
+      color: var(--cinnabar);
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .scale-item em {
+      display: block;
+      color: var(--jade-dark);
+      font-style: normal;
+      font-weight: 820;
+      margin-bottom: 8px;
+    }
+
+    .scale-item span {
+      display: block;
+      color: var(--ink-2);
+      line-height: 1.55;
+      font-size: 13px;
+    }
+
+    .reader-note {
+      margin-top: 16px;
+      border-left: 3px solid var(--gold);
+      background: rgba(255,247,223,.5);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 14px;
+      color: #4b3b1d;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
     .path-step,
     .construction-card,
     .note-card {
@@ -712,6 +788,7 @@
       .nav { width: 100%; }
       .hero, .two-grid, .home-grid { grid-template-columns: 1fr; }
       .three-grid, .more-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .concept-grid, .valency-scale { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .plum-stage { min-height: 310px; }
     }
 
@@ -727,6 +804,7 @@
       .confidence { border-left: 0; border-top: 1px solid var(--line); padding-left: 0; padding-top: 12px; text-align: left; }
       .section-head { grid-template-columns: 1fr; }
       .three-grid, .more-grid { grid-template-columns: 1fr; }
+      .concept-grid, .valency-scale { grid-template-columns: 1fr; }
       .row { grid-template-columns: 1fr; }
     }
   </style>
@@ -825,15 +903,21 @@
       <div class="section-head">
         <div>
           <h2>句法结构：层次分析与依存分析</h2>
-          <p>这一板块只处理形式结构。层次分析把句子拆成短语和结构单位；依存分析把词与词之间的支配关系画出来。</p>
+          <p>这一板块先回答最基础的问题：句子由哪些成分组成，哪个词支配哪个词。它只说明形式结构，不急着判断“谁是施事、谁是受事”。</p>
         </div>
         <span class="section-tag">Syntax</span>
+      </div>
+      <div class="concept-grid">
+        <div class="concept"><b>层次/成分分析</b><span>把句子一层层切开：词组成短语，短语组成更大的句法单位。适合说明“把书”“放在桌子上”这样的结构块。</span></div>
+        <div class="concept"><b>依存语法</b><span>把句子看成词与词之间的支配关系：通常有一个核心词，其他词依附于它，说明主谓、宾语、状语、补语等关系。</span></div>
+        <div class="concept"><b>为什么先看句法</b><span>先看形式位置，再看语义角色。否则容易把“主语”“施事”“话题”混成同一个概念。</span></div>
       </div>
       <div class="two-grid">
         <article class="card">
           <h3><span class="icon">层</span>层次/成分分析</h3>
           <p class="copy">先把句子按可解释的结构层级拆开，而不是直接把所有关系都归到语义角色里。</p>
           <div class="tree" id="constituencyBox"></div>
+          <div class="reader-note" id="constituencyHowToRead">读法：先找核心谓词，再看它前后有哪些短语为它服务。</div>
         </article>
         <article class="card">
           <h3><span class="icon">依</span>依存结构</h3>
@@ -851,25 +935,42 @@
       <div class="section-head">
         <div>
           <h2>谓词角色：配价、格语法与语义角色</h2>
-          <p>这一板块专门处理谓词和参与者。配价关注“几个强制论元”，格语法关注“论元性质”，语义角色关注“事件中的功能”。</p>
+          <p>这一板块专门处理“动词和参与者”。配价先数动词通常需要几个核心成分；格语法说明这些成分的深层性质；语义角色把事件中的功能说清楚。</p>
         </div>
         <span class="section-tag">Predicate Roles</span>
       </div>
+      <div class="concept-grid">
+        <div class="concept"><b>配价语法看“需要几个”</b><span>一个动词为了表达完整事件，通常需要几个核心论元，就叫几价。比如“怕”通常需要经验者和刺激物，是二价。</span></div>
+        <div class="concept"><b>格语法看“是什么关系”</b><span>同样在句首的位置，可能是施事、经验者、处所或话题。格语法帮助我们说明这些深层关系。</span></div>
+        <div class="concept"><b>语义角色看“事件功能”</b><span>用施事、受事、经验者、刺激物、处所、工具、受领者等标签，解释每个成分在事件中做什么。</span></div>
+      </div>
+      <article class="card" style="margin-bottom:18px;">
+        <h3><span class="icon">价</span>什么是几价动词</h3>
+        <p class="copy">“价”不是难词，可以先理解为动词需要几个核心位置。零价不用补人或物；一价通常只需要一个主体；二价需要两个参与者；三价需要三个参与者。</p>
+        <div class="valency-scale">
+          <div class="scale-item"><strong>零价</strong><em>下雨了。</em><span>自然事件直接成句，没有施事或受事。</span></div>
+          <div class="scale-item"><strong>一价</strong><em>他笑了。</em><span>只需要一个主体，说明动作或状态发生。</span></div>
+          <div class="scale-item"><strong>二价</strong><em>李四怕狗。</em><span>需要两个核心成分：经验者“李四”和刺激物“狗”。</span></div>
+          <div class="scale-item"><strong>三价</strong><em>妈妈送孩子一本书。</em><span>需要施事、受领者和被转移的客体三个成分。</span></div>
+        </div>
+      </article>
       <div class="three-grid">
         <article class="card">
           <h3><span class="icon">配</span>配价语法</h3>
-          <p class="copy">看动词为了成句通常需要哪些论元。</p>
+          <p class="copy">先数核心论元：这个动词如果要把事件说完整，哪些成分不能随便省掉？</p>
           <div class="frame-box">
             <div class="verb"><strong id="verbText">放</strong><span class="formula" id="valencyFrame">施事 + 受事 + 处所</span></div>
             <div class="roles" id="roleList"></div>
           </div>
           <p class="copy" id="valencyExplanation" style="margin-top:16px;"></p>
+          <div class="reader-note" id="valencyHowToRead">读法：从核心动词出发，问“谁/什么/到哪里”等问题。</div>
         </article>
         <article class="card">
           <h3><span class="icon">格</span>格语法</h3>
-          <p class="copy">同样的“主语/宾语”，可能在事件中承担完全不同的深层格。</p>
+          <p class="copy">格语法不是“格助词”的格，而是说一个成分在事件里的深层身份。</p>
           <div class="pathway">
             <div class="path-step"><strong id="casePattern">施事格 + 受事格</strong><span id="caseInsight">格语法补充解释论元性质。</span></div>
+            <div class="path-step"><strong>常见深层格</strong><span>施事格：动作发出者；受事格：受影响对象；处所格：事件发生位置；工具格：动作凭借的工具；经验格：心理状态的经历者。</span></div>
             <div class="path-step"><strong>适合解释</strong><span>心理动词、处所前置、工具成分、双宾结构和“把”字句中的受事突显。</span></div>
           </div>
         </article>
@@ -888,9 +989,14 @@
       <div class="section-head">
         <div>
           <h2>汉语构式：把句子放回汉语表达系统</h2>
-          <p>构式层处理“这种句子在汉语里属于什么表达模式”。它不是配价、格语法或依存语法的替代品，而是解释汉语特色表达的另一个层面。</p>
+          <p>构式层处理“这种句子在汉语里属于什么表达模式”。它不是配价、格语法或依存语法的替代品，而是说明汉语为什么要这样安排词序和句式。</p>
         </div>
         <span class="section-tag">Constructions</span>
+      </div>
+      <div class="concept-grid">
+        <div class="concept"><b>构式是什么</b><span>构式可以理解为“形式 + 意义/功能”的固定搭配。比如“把 + 受事 + 动词 + 结果/处所”常表达处置。</span></div>
+        <div class="concept"><b>和配价的区别</b><span>配价看动词需要几个角色；构式看整个句式怎样组织这些角色，并突出哪一部分。</span></div>
+        <div class="concept"><b>为什么汉语要单独讲构式</b><span>把字句、存现句、连动句、兼语句等都有明显的汉语特点，仅用主谓宾很难讲清楚。</span></div>
       </div>
       <div class="two-grid">
         <article class="card">
@@ -904,11 +1010,11 @@
           <h3><span class="icon">谱</span>常见汉语构式谱系</h3>
           <div class="three-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top:18px;">
             <div class="construction-card"><strong>把字句</strong><span>突出受事、处置过程和结果达成。</span></div>
-            <div class="construction-card"><strong>被字句</strong><span>突出受影响对象和事件结果。</span></div>
-            <div class="construction-card"><strong>存现句</strong><span>从处所或时间出发展示存在、出现、消失。</span></div>
-            <div class="construction-card"><strong>处所句</strong><span>以空间场域组织信息，如“台上坐着主席团”。</span></div>
-            <div class="construction-card"><strong>连动/兼语</strong><span>展示动作链和角色连续变化。</span></div>
-            <div class="construction-card"><strong>述补结构</strong><span>用补语说明结果、趋向、程度或可能性。</span></div>
+            <div class="construction-card"><strong>被字句</strong><span>把受影响者推到前面，突出遭遇或结果，如“书被他拿走了”。</span></div>
+            <div class="construction-card"><strong>存现句</strong><span>从处所或时间出发，说明某处存在、出现或消失了什么。</span></div>
+            <div class="construction-card"><strong>处所句</strong><span>以空间场域组织信息，如“台上坐着主席团”。处所更像话题，不一定是传统主语。</span></div>
+            <div class="construction-card"><strong>连动/兼语</strong><span>连动句展示动作链；兼语句中一个成分同时连接前后两个谓语，如“请他来”。</span></div>
+            <div class="construction-card"><strong>述补结构</strong><span>用补语说明结果、趋向、程度或可能性，如“打开”“走进去”“听得懂”。</span></div>
           </div>
         </article>
       </div>
@@ -918,9 +1024,14 @@
       <div class="section-head">
         <div>
           <h2>信息组织：话题、焦点与语序突显</h2>
-          <p>这一板块解释说话人如何安排信息：先让读者注意什么，重点放在哪里，哪些成分通过语序获得突显。</p>
+          <p>这一板块解释说话人如何安排信息：先让读者注意什么，重点放在哪里，哪些成分通过语序获得突显。它处理的是表达策略，不等同于句法结构。</p>
         </div>
         <span class="section-tag">Information Structure</span>
+      </div>
+      <div class="concept-grid">
+        <div class="concept"><b>话题</b><span>说话先拿出来谈的对象或场域。话题不一定等于主语，如“台上坐着主席团”里的“台上”。</span></div>
+        <div class="concept"><b>述题</b><span>围绕话题说明的新内容。它回答“关于这个话题，说话人要告诉我们什么”。</span></div>
+        <div class="concept"><b>焦点</b><span>句子中最需要被注意的信息。汉语常通过语序、构式和语境来突出焦点。</span></div>
       </div>
       <div class="two-grid">
         <article class="card">
@@ -1145,6 +1256,8 @@
       document.getElementById("constructionInsight").textContent = `当前句子的构式判断为“${result.construction.type}”。构式层关注它在汉语表达系统中的功能，而不是重复句法或角色分析。`;
       document.getElementById("infoOldNew").textContent = `话题“${result.topicComment.topic}”为读者建立观察起点，述题“${result.topicComment.comment}”推进新信息。`;
       document.getElementById("infoProminence").textContent = result.topicComment.insight;
+      document.getElementById("valencyHowToRead").textContent = valencyReadingGuide(result);
+      document.getElementById("constituencyHowToRead").textContent = syntaxReadingGuide(result);
       renderRoles();
       renderArcs();
       renderTokens();
@@ -1167,6 +1280,20 @@
         div.innerHTML = `<strong>${item.label} (${item.english})</strong><br><em>例：</em>${item.word}<br>${item.note}`;
         box.appendChild(div);
       });
+    }
+
+    function valencyReadingGuide(data) {
+      const slots = data.valency.slots || [];
+      if (slots.length === 0) {
+        return `读法：先确认核心谓词“${data.verb}”表示自然事件或状态，本句不需要补出“谁做”或“作用于谁”，所以可理解为零价。`;
+      }
+      const questions = slots.map(item => `${item.label}=${item.word}`).join("，");
+      return `读法：先找核心谓词“${data.verb}”，再看它需要几个核心位置。本句有 ${slots.length} 个核心论元：${questions}，所以属于${data.valency.type}。`;
+    }
+
+    function syntaxReadingGuide(data) {
+      const words = data.tokens.map(item => item.word).filter(word => word !== "。").join(" / ");
+      return `读法：先把句子切成“${words}”这些结构单位，再看核心谓词“${data.verb}”如何把它们组织起来。`;
     }
 
     function renderArcs() {
