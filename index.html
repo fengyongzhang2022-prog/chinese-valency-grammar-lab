@@ -49,7 +49,7 @@
     }
 
     .topbar-inner {
-      max-width: 1480px;
+      max-width: 1320px;
       margin: 0 auto;
       padding: 18px 24px;
       display: flex;
@@ -93,11 +93,11 @@
     }
 
     .layout {
-      max-width: 1480px;
+      max-width: 1320px;
       margin: 0 auto;
       padding: 24px;
       display: grid;
-      grid-template-columns: 280px minmax(0, 1fr) 410px;
+      grid-template-columns: 260px minmax(0, 1fr);
       gap: 18px;
       align-items: start;
     }
@@ -311,7 +311,10 @@
     .role small { display: inline-block; border-radius: 999px; background: rgba(255,255,255,.7); padding: 3px 8px; }
     .role-note { margin-top: 6px; font-size: 13px; line-height: 1.6; opacity: .86; }
 
-    .rightcol { position: sticky; top: 96px; }
+    .rightcol {
+      grid-column: 2;
+      position: static;
+    }
     .result-card {
       border: 1px solid #e2d6c7;
       border-radius: 18px;
@@ -365,6 +368,7 @@
     @media (max-width: 1180px) {
       .layout { grid-template-columns: 1fr; }
       .side, .rightcol { position: static; }
+      .rightcol { grid-column: auto; }
       .side { order: 0; }
       .result-stack { order: 3; }
     }
