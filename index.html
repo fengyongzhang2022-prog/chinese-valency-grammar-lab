@@ -539,7 +539,7 @@
 
     .arc-svg {
       width: 100%;
-      height: 146px;
+      height: 206px;
       display: block;
       overflow: visible;
       margin-bottom: 8px;
@@ -549,6 +549,28 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
       gap: 10px;
+    }
+
+    .relation-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .relation-item {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,255,255,.72);
+      padding: 9px 11px;
+      color: var(--ink-2);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .relation-item b {
+      color: var(--jade-dark);
+      font-weight: 850;
     }
 
     .token {
@@ -805,6 +827,7 @@
       .section-head { grid-template-columns: 1fr; }
       .three-grid, .more-grid { grid-template-columns: 1fr; }
       .concept-grid, .valency-scale { grid-template-columns: 1fr; }
+      .relation-list { grid-template-columns: 1fr; }
       .row { grid-template-columns: 1fr; }
     }
   </style>
@@ -923,8 +946,9 @@
           <h3><span class="icon">依</span>依存结构</h3>
           <p class="copy">依存图强调核心词及其附属成分，适合展示动词作为句法组织中心的方式。</p>
           <div class="structure-board">
-            <svg class="arc-svg" id="arcSvg" viewBox="0 0 720 150" preserveAspectRatio="none"></svg>
+            <svg class="arc-svg" id="arcSvg" viewBox="0 0 720 210" preserveAspectRatio="none"></svg>
             <div class="tokens" id="tokens"></div>
+            <div class="relation-list" id="relationList"></div>
           </div>
           <p class="copy" id="dependencyInsight" style="margin-top:16px;"></p>
         </article>
@@ -1144,13 +1168,13 @@
           source: "local",
           confidence: .84,
           sentence,
-          tokens: [{ word: "李四/他", pos: "经验者" }, { word: verb, pos: "心理动词" }, { word: "狗/对象", pos: "刺激物" }, { word: "。", pos: "标点" }],
+          tokens: [{ word: "李四", pos: "经验者" }, { word: "很", pos: "程度副词" }, { word: verb, pos: "心理动词" }, { word: "狗", pos: "刺激物" }, { word: "。", pos: "标点" }],
           verb,
-          valency: { type: "二价心理动词", frame: "经验者 + 刺激物", explanation: "心理动词不是典型施事动作，而是经验者被某个对象触发心理状态。", slots: [role("经验者", "Experiencer", "李四/他", "经历心理状态的人"), role("刺激物", "Stimulus", "狗/对象", "引发心理状态的对象")] },
+          valency: { type: "二价心理动词", frame: "经验者 + 刺激物", explanation: "心理动词不是典型施事动作，而是经验者被某个对象触发心理状态。", slots: [role("经验者", "Experiencer", "李四", "经历心理状态的人"), role("刺激物", "Stimulus", "狗", "引发心理状态的对象")] },
           caseGrammar: { pattern: "经验格 + 刺激格", insight: "格语法能避免把所有句首人称都粗暴解释为主动施事。" },
-          dependency: { root: verb, insight: "依存语法保留形式关系，语义角色进一步解释关系性质。", relations: [{ from: "李四/他", to: verb, rel: "经验者", color: "#486e91" }, { from: "狗/对象", to: verb, rel: "刺激物", color: "#b84a38" }] },
+          dependency: { root: verb, insight: "依存语法保留形式关系，语义角色进一步解释关系性质。", relations: [{ from: "李四", to: verb, rel: "经验者", color: "#486e91" }, { from: "很", to: verb, rel: "程度", color: "#b1812a" }, { from: "狗", to: verb, rel: "刺激物", color: "#b84a38" }, { from: "。", to: verb, rel: "标点", color: "#687383" }] },
           construction: { type: "心理状态句", insight: "句子表达经验者的心理反应，而非一个外显动作。" },
-          topicComment: { topic: "李四/他", comment: `${verb}狗/对象`, insight: "句首实体作为话题，后文说明其心理状态。" },
+          topicComment: { topic: "李四", comment: `${verb}狗`, insight: "句首实体作为话题，后文说明其心理状态。" },
           theta: { grid: `${verb} <Experiencer, Stimulus>`, principle: "心理动词显示：语义角色不等同于传统主语宾语。" },
           pedagogy: ["讲心理动词。", "提示“主语”不自动等同于“施事”。", "适合与“我喜欢茶/茶我喜欢”做话题结构对比。"]
         };
@@ -1161,14 +1185,14 @@
           source: "local",
           confidence: .88,
           sentence,
-          tokens: [{ word: "妈妈/说话人", pos: "施事" }, { word: "送给", pos: "转移动词" }, { word: "孩子/对方", pos: "受领者" }, { word: "书/信息", pos: "客体" }, { word: "。", pos: "标点" }],
-          verb: "送给/告诉",
-          valency: { type: "三价动词", frame: "施事 + 受领者 + 客体", explanation: "转移类动词需要动作发出者、接受者和被转移对象三类角色。", slots: [role("施事", "Agent", "妈妈/说话人", "发出转移动作"), role("受领者", "Recipient", "孩子/对方", "接受对象"), role("客体", "Theme", "书/信息", "被转移的内容")] },
+          tokens: [{ word: "妈妈", pos: "施事" }, { word: "送", pos: "转移动词" }, { word: "给", pos: "受领标记" }, { word: "孩子", pos: "受领者" }, { word: "一本书", pos: "客体" }, { word: "。", pos: "标点" }],
+          verb: sentence.includes("告诉") ? "告诉" : "送",
+          valency: { type: "三价动词", frame: "施事 + 受领者 + 客体", explanation: "转移类动词需要动作发出者、接受者和被转移对象三类角色。", slots: [role("施事", "Agent", "妈妈", "发出转移动作"), role("受领者", "Recipient", "孩子", "接受对象"), role("客体", "Theme", "一本书", "被转移的内容")] },
           caseGrammar: { pattern: "施事格 + 受领格 + 主题格", insight: "格语法可以把双宾结构、介词“给”的功能讲清楚。" },
-          dependency: { root: "送给/告诉", insight: "依存关系区分直接宾语和间接宾语，利于做机器可读句法图。", relations: [{ from: "妈妈/说话人", to: "送给/告诉", rel: "施事", color: "#0a746d" }, { from: "孩子/对方", to: "送给/告诉", rel: "受领者", color: "#b1812a" }, { from: "书/信息", to: "送给/告诉", rel: "客体", color: "#486e91" }] },
+          dependency: { root: "送", insight: "依存关系区分直接宾语和间接宾语：孩子是受领者，一本书是被转移的客体。", relations: [{ from: "妈妈", to: "送", rel: "施事", color: "#0a746d" }, { from: "给", to: "孩子", rel: "受领标记", color: "#b1812a" }, { from: "孩子", to: "送", rel: "受领者", color: "#b1812a" }, { from: "一本书", to: "送", rel: "客体", color: "#486e91" }, { from: "。", to: "送", rel: "标点", color: "#687383" }] },
           construction: { type: "转移类双宾/给字结构", insight: "句子强调物品、信息或行为从施事转向受领者。" },
-          topicComment: { topic: "妈妈/说话人", comment: "把某物转移给某人", insight: "话题-述题视角可展示事件叙述的展开顺序。" },
-          theta: { grid: "送给/告诉 <Agent, Recipient, Theme>", principle: "三价动词最适合演示谓词-论元结构。" },
+          topicComment: { topic: "妈妈", comment: "送给孩子一本书", insight: "话题-述题视角可展示事件叙述的展开顺序。" },
+          theta: { grid: "送 <Agent, Recipient, Theme>", principle: "三价动词最适合演示谓词-论元结构。" },
           pedagogy: ["讲双宾语和“给”字结构。", "让学生画出“谁给谁什么”。", "适合扩展到教材中的交际功能训练。"]
         };
       }
@@ -1182,11 +1206,15 @@
         source: "local",
         confidence: .89,
         sentence,
-        tokens: [{ word: agent, pos: "施事" }, { word: "把", pos: "标记" }, { word: patient, pos: "受事" }, { word: verb, pos: "核心动词" }, { word: third, pos: thirdLabel }, { word: "。", pos: "标点" }],
+        tokens: sentence.includes("放") && sentence.includes("桌子")
+          ? [{ word: agent, pos: "施事" }, { word: "把", pos: "标记" }, { word: patient, pos: "受事" }, { word: verb, pos: "核心动词" }, { word: "在", pos: "处所标记" }, { word: "桌子", pos: "处所名词" }, { word: "上", pos: "方位成分" }, { word: "。", pos: "标点" }]
+          : [{ word: agent, pos: "施事" }, { word: "用", pos: "工具标记" }, { word: third, pos: "工具" }, { word: verb, pos: "核心动词" }, { word: patient, pos: "受事" }, { word: "。", pos: "标点" }],
         verb,
         valency: { type: "三价动作动词", frame: `施事 + 受事 + ${thirdLabel}`, explanation: "核心动词不仅需要施事和受事，还常常需要目标处所、路径或工具来补足事件结构。", slots: [role("施事", "Agent", agent, "动作的发出者，通常有意识地推动事件发生"), role("受事", "Patient", patient, "动作所作用的对象，通常直接受到影响"), role(thirdLabel, thirdLabel === "工具" ? "Instrument" : "Location", third, "补足事件完成条件的成分")] },
         caseGrammar: { pattern: `施事格 + 受事格 + ${thirdLabel}格`, insight: "格语法能把“把”字句中的受事提前解释为语义突显，而不是简单倒装。" },
-        dependency: { root: verb, insight: "依存语法以动词为根，把标记、受事、处所/工具都挂接到事件核心上。", relations: [{ from: agent, to: verb, rel: "施事", color: "#0a746d" }, { from: patient, to: verb, rel: "受事", color: "#b84a38" }, { from: third, to: verb, rel: thirdLabel, color: "#486e91" }] },
+        dependency: sentence.includes("放") && sentence.includes("桌子")
+          ? { root: verb, insight: "依存语法以“放”为根：小明是施事，书是受事，在桌子上说明处所；“把”“在”“上”分别标出受事、处所和方位关系。", relations: [{ from: agent, to: verb, rel: "施事", color: "#0a746d" }, { from: "把", to: patient, rel: "标记", color: "#b1812a" }, { from: patient, to: verb, rel: "受事", color: "#b84a38" }, { from: "桌子", to: verb, rel: "处所", color: "#486e91", labelFrom: "在桌子上" }, { from: "在", to: "桌子", rel: "处所介词/处所标记", color: "#486e91", labelTo: "桌子上" }, { from: "上", to: "桌子", rel: "方位成分", color: "#486e91" }, { from: "。", to: verb, rel: "标点", color: "#687383" }] }
+          : { root: verb, insight: "依存语法以动词为根，把施事、工具和受事挂接到事件核心上。", relations: [{ from: agent, to: verb, rel: "施事", color: "#0a746d" }, { from: "用", to: third, rel: "工具标记", color: "#b1812a" }, { from: third, to: verb, rel: "工具", color: "#486e91" }, { from: patient, to: verb, rel: "受事", color: "#b84a38" }, { from: "。", to: verb, rel: "标点", color: "#687383" }] },
         construction: { type: sentence.includes("把") ? "把字句" : "动作叙述句", insight: sentence.includes("把") ? "“把”字句突出受事和处置结果。" : "句子围绕动作事件组织参与角色。" },
         topicComment: { topic: agent, comment: sentence.replace(/[。！？]/g, "").replace(agent, ""), insight: "汉语句子可从人物、受事或处所展开，话题位置体现信息组织策略。" },
         theta: { grid: `${verb} <Agent, Patient, ${thirdLabel === "工具" ? "Instrument" : "Location"}>`, principle: "一个论元只承担一个核心角色，一个核心角色只分配给一个论元。" },
@@ -1240,6 +1268,7 @@
     }
 
     function render() {
+      result = normalizeTeachingAnalysis(result);
       document.getElementById("currentSentence").textContent = result.sentence;
       document.getElementById("currentSummary").textContent = `${result.construction.type}；${result.valency.type}；核心谓词为“${result.verb}”。`;
       document.getElementById("focusText").textContent = result.verb;
@@ -1261,10 +1290,35 @@
       renderRoles();
       renderArcs();
       renderTokens();
+      renderRelations();
       renderConstituency();
       renderTopic();
       renderTeaching();
       renderMoreExamples();
+    }
+
+    function normalizeTeachingAnalysis(data) {
+      const sentence = data.sentence || "";
+      const needsTeachingGraph =
+        (sentence.includes("把") && sentence.includes("放") && sentence.includes("桌子")) ||
+        (sentence.includes("张三") && sentence.includes("钥匙") && sentence.includes("打开")) ||
+        (sentence.includes("李四") && sentence.includes("怕")) ||
+        (sentence.includes("妈妈") && sentence.includes("送"));
+
+      if (!needsTeachingGraph) return data;
+
+      const local = localAnalyze(sentence);
+      return {
+        ...data,
+        tokens: local.tokens,
+        dependency: local.dependency,
+        valency: local.valency,
+        caseGrammar: local.caseGrammar,
+        construction: local.construction,
+        topicComment: local.topicComment,
+        theta: local.theta,
+        verb: local.verb
+      };
     }
 
     function renderRoles() {
@@ -1300,13 +1354,15 @@
       const svg = document.getElementById("arcSvg");
       const words = result.tokens.map(item => item.word);
       svg.innerHTML = `<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#18202c"></path></marker></defs>`;
-      result.dependency.relations.slice(0, 5).forEach((rel, index) => {
+      const margin = words.length > 6 ? 34 : 62;
+      const step = words.length > 1 ? (720 - margin * 2) / (words.length - 1) : 0;
+      result.dependency.relations.forEach((rel, index) => {
         const from = Math.max(0, words.indexOf(rel.from));
         const to = Math.max(0, words.indexOf(rel.to));
-        const x1 = 62 + from * 118;
-        const x2 = 62 + to * 118;
-        const y = 112;
-        const h = 32 + Math.abs(from - to) * 14 + index * 5;
+        const x1 = margin + from * step;
+        const x2 = margin + to * step;
+        const y = 166;
+        const h = 34 + Math.abs(from - to) * 14 + (index % 4) * 10;
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", `M ${x1} ${y} C ${x1} ${y - h}, ${x2} ${y - h}, ${x2} ${y}`);
         path.setAttribute("fill", "none");
@@ -1316,7 +1372,7 @@
         svg.appendChild(path);
         const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
         text.setAttribute("x", (x1 + x2) / 2);
-        text.setAttribute("y", Math.max(18, y - h - 6));
+        text.setAttribute("y", Math.max(18, y - h - 7));
         text.setAttribute("text-anchor", "middle");
         text.setAttribute("fill", rel.color || "#0a746d");
         text.setAttribute("font-size", "12");
@@ -1333,6 +1389,19 @@
         const div = document.createElement("div");
         div.className = "token";
         div.innerHTML = `<strong>${token.word}</strong><span>${token.pos}</span>`;
+        box.appendChild(div);
+      });
+    }
+
+    function renderRelations() {
+      const box = document.getElementById("relationList");
+      box.innerHTML = "";
+      result.dependency.relations.forEach(rel => {
+        const div = document.createElement("div");
+        div.className = "relation-item";
+        const from = rel.labelFrom || rel.from;
+        const to = rel.labelTo || rel.to;
+        div.innerHTML = `<b>${from} → ${to}</b>：${rel.rel}`;
         box.appendChild(div);
       });
     }
